@@ -60,12 +60,10 @@
     <script>
 
 	    
-		var customMarker= L.Icon.extend({
-			options: {
-				shadowUrl: null,
-				iconSize:     [38, 95],
-				iconAnchor:   [22, 94],
-    			}
+		var customMarker= L.Icon({
+			shadowUrl: null,
+			iconSize:     [38, 95],
+			iconAnchor:   [22, 94]
 		});
 	    
 	    	var newIcon = new customMarker({iconUrl: 'https://image.flaticon.com/icons/svg/1754/1754527.svg'});
