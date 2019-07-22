@@ -60,7 +60,7 @@
     <script>
 
 	    	var newIcon = L.Icon({
-			iconUrl: 'https://image.flaticon.com/icons/svg/1754/1754527.svg',
+			iconUrl: 'https://github.com/anditabinas/mhawhereness/blob/master/mental-health.svg',
 			iconSize: [64,74],
 			iconAnchor: [33,74],
 			popupAnchor: [0,-50]
@@ -120,10 +120,11 @@
 					onEachFeature: function (feature, layer) {
 						layer.bindPopup('<b>Name: </b>' + feature.properties.name + '<br>' + '<b>Doctor: </b>' + feature.properties.doctor + '<br>' + '<b>Address: </b>' + feature.properties.address + '<br>' + '<b>Contact Number: </b>' + feature.properties.contactnum + '<br>' + '<b>Fees (Initial/Succeeding): </b>' + feature.properties.fee + '<br>' + '<b>Website: </b>' + feature.properties.website + '<br>' + '<b>Opening Hours: </b>' + feature.properties.hours + '<br>' + '<b>Notes/Recommendations: </b>' + feature.properties.notes + '');
 					}
-					pointToLayer: function(geoJsonPoint, latlng) {
+					pointToLayer: function (geoJsonPoint, latlng) {
 						return L.marker(latlng, {
-							icon: newIcon
-					}
+							icon: newIcon	
+					})
+				
 				}).addTo(map);
 			});
 		}
