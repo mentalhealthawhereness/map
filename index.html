@@ -59,6 +59,16 @@
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script>
 
+	    
+		var customMarker= L.Icon.extend({
+			options: {
+				shadowUrl: null,
+				iconAnchor: new L.Point(12, 12),
+				iconSize: new L.Point(24, 24),
+				iconUrl: 'https://image.flaticon.com/icons/svg/1754/1754527.svg'
+    			}
+		});	
+	    
 		//TODO: Change to your username, insert function on Carto, and Carto tablename
 		var config = {
 			cartoUsername : "anditabinas",
@@ -75,13 +85,15 @@
 					*/
 					circle : false,
                     circlemarker : false,
-					marker: true
+					marker: true {
+						icon: new customMarker()
+					},
 				},
 				edit : false,
 				remove: false
 			}
 		};
-
+	       
 
 		// Add Data from Carto using the SQL API
 		// Declare Variables
