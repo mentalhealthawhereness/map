@@ -58,14 +58,6 @@
     
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script>
-
-	    	// var newIcon = L.Icon.extend({
-		//	options: {
-		//		iconUrl: '<ion-icon src="/path/to/external/file.svg"></ion-icon>',
-		//		iconSize: [64,74],
-		//		iconAnchor: [33,74],
-			}	
-		// });
 	    
 		//TODO: Change to your username, insert function on Carto, and Carto tablename
 		var config = {
@@ -84,9 +76,6 @@
 					circle : false,
                     			circlemarker : false,
 					marker: true
-		//				{
-		//				icon: newIcon
-		//			},
 				},
 				edit : false,
 				remove: false
@@ -122,12 +111,7 @@
 				cartoData = L.geoJson(data, {
 					onEachFeature: function (feature, layer) {
 						layer.bindPopup('<b>Name: </b>' + feature.properties.name + '<br>' + '<b>Doctor: </b>' + feature.properties.doctor + '<br>' + '<b>Address: </b>' + feature.properties.address + '<br>' + '<b>Contact Number: </b>' + feature.properties.contactnum + '<br>' + '<b>Fees (Initial/Succeeding): </b>' + feature.properties.fee + '<br>' + '<b>Website: </b>' + feature.properties.website + '<br>' + '<b>Opening Hours: </b>' + feature.properties.hours + '<br>' + '<b>Notes/Recommendations: </b>' + feature.properties.notes + '');
-					}
-					// pointToLayer: function (data, layer) {
-					//	return L.marker(data, {
-					//		icon: newIcon
-					//	});
-					//}				
+					}			
 				}).addTo(map);
 			});
 		}
@@ -159,7 +143,7 @@
 			dialog.dialog("open");
 		});
 		
-	    	L.Icon.Default.prototype.options.iconUrl = 'https://image.flaticon.com/icons/svg/1754/1754527.svg';
+	    	//L.Icon.Default.prototype.options.iconUrl = 'https://image.flaticon.com/icons/svg/1754/1754527.svg';
 	    
 	    
 		var dialog = $("#dialog").dialog({
