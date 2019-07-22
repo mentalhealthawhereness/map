@@ -59,13 +59,11 @@
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script>
 
-	    	var newIcon = L.Icon.extend({
-			options: {
-				iconUrl: '<ion-icon src="/path/to/external/file.svg"></ion-icon>',
-				iconSize: [64,74],
-				iconAnchor: [33,74],
-			}	
-		 });	    
+	    	var newIcon = L.Icon({
+			iconUrl: 'https://image.flaticon.com/icons/svg/1754/1754527.svg',
+			iconSize: [64,74],
+			iconAnchor: [33,74],	
+		});	    
 	    
 	    
 		//TODO: Change to your username, insert function on Carto, and Carto tablename
@@ -84,7 +82,7 @@
 					*/
 					circle : false,
                     			circlemarker : false,
-					marker: true
+					marker: 
 						{
 						icon: newIcon
 					},									
