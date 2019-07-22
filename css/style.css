@@ -31,12 +31,13 @@ h1 {
 
 #wrapper {
   width: 99%;
+  height: 100%;
 }
 
 #map {
   width: 99%;
   margin: 0 auto;
-  height: 780px;
+  height: 100%;
 }
 
 #controls {
