@@ -25,13 +25,13 @@ h1 {
 }
 
 #wrapper {
-  width: 99%;
+  width: device-width;
 }
 
 #map {
-  width: 99%;
+  width: device-width;
   margin: 0 auto;
-  height: 780px;
+  height: 100%;
 }
 
 #controls {
