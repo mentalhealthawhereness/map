@@ -65,9 +65,10 @@
 				shadowUrl: null,
 				iconSize:     [38, 95],
 				iconAnchor:   [22, 94],
-				iconUrl: 'https://image.flaticon.com/icons/svg/1754/1754527.svg'
     			}
 		});
+	    
+	    	var newIcon = new customMarker({iconUrl: 'https://image.flaticon.com/icons/svg/1754/1754527.svg'});
 	    
 	    
 		//TODO: Change to your username, insert function on Carto, and Carto tablename
@@ -86,7 +87,7 @@
 					*/
 					circle : false,
                     circlemarker : false,
-					marker: true, icon: customMarker,
+					marker: true, icon: newIcon,
 				},
 				edit : false,
 				remove: false
