@@ -1,5 +1,9 @@
 @import url(//fonts.googleapis.com/css?family=Open+Sans);
 
+html {
+  height: 100%;
+}
+
 body {
   margin: 0px;
   font-family: 'Open Sans', Helvetica, sans-serif;
@@ -7,36 +11,53 @@ body {
 
 img {
   float: left;
+  padding-left: 10px;
   padding-right: 10px;
 }
 
 p {
-  font-size: 15px;
-  line-height: 25px;
+  font-size: 12px;
+  line-height: 10px;
 }
 
 h1 {
-  line-height: 60px;
-  margin-top: 0px;
+  line-height: 35px;
+  margin-top: 4px;
   margin-bottom: 0px;
-  margin-left: 4px;
+  margin-left: 10px;
   color: #3173D8;
+  font-size: 40px;
   font-weight: lighter;
 }
 
+label {
+  font-size: 12px;
+  font-family: 'Open Sans', Roboto, sans-serif;
+  font-weight: bold;
+}  
+
+#dialog {
+  font-size: 12px;
+  font-family: 'Open Sans', Roboto, sans-serif;
+}
+
+
 #wrapper {
-  width: 99%;
+  width: 100%;
 }
 
 #map {
-  width: 99%;
+  width: 100%;
   margin: 0 auto;
-  height: 780px;
+  height: 800px;
 }
 
 #controls {
   width: 100%;
-  margin: 0 auto;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 4px;
+  font-size: 12px;
   float: left;
 }
 
@@ -55,8 +76,8 @@ h1 {
 }
 
 #credits p {
-  margin-top: 1px;
-  font-size: 8px;
+  margin-top: 5px;
+  font-size: 10px;
   text-align: right;
-  line-height: 10px;
+  line-height: 2px;
 }
