@@ -119,11 +119,16 @@
 		Mapbox.addTo(map);
 	    
 	    	//Add Search; OSMGeocoder
-		var osmGeocoder = new L.Control.OSMGeocoder({position: 'topleft'});
+		var osmGeocoder = new L.Control.OSMGeocoder({position: 'topleft'});		    
 		map.addControl(osmGeocoder);
 	    
 	    	//Add Locate Control
-		var lc = L.control.locate({position: 'topleft'});
+		var lc = L.control.locate({
+	    		position: 'topleft'},
+			icon: {
+				<i class="fas fa-user-circle"></i>
+			}
+		});		
 		map.addControl(lc);		  
 
 	    
