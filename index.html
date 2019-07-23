@@ -11,11 +11,12 @@
   crossorigin=""/>
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.12/leaflet.draw.css"/>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-	  
+    <link rel="stylesheet" type="text/css" href="css/style.css">	  
 	<!--<script src="../Control.OSMGeocoder.js"></script>-->
 	<!--<link rel="stylesheet" href="../Control.OSMGeocoder.css" />-->
     <link rel="stylesheet" href="https://rawgit.com/k4r573n/leaflet-control-osm-geocoder/master/Control.OSMGeocoder.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">	  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.67.0/dist/L.Control.Locate.min.css" />
 	  	  
   </head>
   <body>
@@ -65,6 +66,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="https://rawgit.com/k4r573n/leaflet-control-osm-geocoder/master/Control.OSMGeocoder.js"></script>	      
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.67.0/dist/L.Control.Locate.min.js" charset="utf-8"></script>  
 	  
     <script>
 	    	var newIcon = L.Icon({
@@ -119,6 +121,11 @@
 	    	//Add Search; OSMGeocoder
 		var osmGeocoder = new L.Control.OSMGeocoder({position: 'topleft'});
 		map.addControl(osmGeocoder);
+	    
+	    	//Add Locate Control
+		var lc = L.control.locate({position: 'topleft'});
+		map.addControl(lc);		  
+
 	    
 		//Fetches
 		var getData = "https://" + config.cartoUsername + ".carto.com/api/v2/sql?format=GeoJSON&q=" + sqlQuery;
