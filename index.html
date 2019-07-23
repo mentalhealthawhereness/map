@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!--Based on https://github.com/radumas/crowdmap-basic and https://github.com/mjfoster83/web-map-workshop/blob/master/7_advancedMapping_CartoDB/index-completed.html-->
+<!--Initially based on https://github.com/radumas/crowdmap-basic and https://github.com/mjfoster83/web-map-workshop/blob/master/7_advancedMapping_CartoDB/index-completed.html-->
 <html>
   <head>
     <meta charset=utf-8 name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -74,9 +74,7 @@
 			iconAnchor: [33,74],	
 		});	    
 	    
-	    
-		//TODO: Change to your username, insert function on Carto, and Carto tablename
-		var config = {
+		var config = { //TODO: Change to your username, insert function on Carto, and Carto tablename
 			cartoUsername : "anditabinas",
 			cartoInsertFunction : "insert_crowd_mapping_data",
 			cartoTablename : "mhloc",
@@ -86,50 +84,37 @@
 					polygon : false,
 					polyline : false,
 					rectangle : false,
-					/*Circles aren't supported by the GeoJSON spec, so won't get sent to the database properly. 
-					*http://stackoverflow.com/a/16944309/4047679
-					*/
 					circle : false,
                     			circlemarker : false,
-					marker: true
-			//			{
-			//			icon: newIcon
-			//		},									
+					marker: true									
 				},
 				edit : false,
 				remove: false
 			}
 		};	       
-		// Add Data from Carto using the SQL API
-		// Declare Variables
-		// Create Global Variable to hold Carto points
-		var cartoData = null;
-		// Write SQL Selection Query to be Used on Carto Table
+		
+		var cartoData = null; //These adds data from Carto using the SQL API, declares variables, and writes the SQL selection query
 		var sqlQuery = "SELECT the_geom, address, name, doctor, contactnum, fee, website, hours, notes FROM " + config.cartoTablename;
-		// Create Leaflet map object
-		var map = L.map('map', { center: config.mapcenter, zoom: 6});
-		// Add Tile Layer basemap
-		// Find your own at https://leaflet-extras.github.io/leaflet-providers/preview/
+		var map = L.map('map', { center: config.mapcenter, zoom: 6}); 	// Creates the Leaflet map object
 		var Mapbox = L.tileLayer('https://api.mapbox.com/styles/v1/anditabinas/cjy8p77s50mq91cmxkhhcw2uw/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYW5kaXRhYmluYXMiLCJhIjoiY2plejI3aHp3MDV3MjMzcW9ydXl2bHNmZiJ9.9h6j7BbkM-PUtK0zaZ1iUg', {
 			attribution: '&copy; <a href="mapbox://styles/anditabinas/cjy8p77s50mq91cmxkhhcw2uw">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 			subdomains: 'abcd',
-			maxZoom: 19
+			maxZoom: 19 //Adds the tilelayer basemap; I used my mapbox style here.
 		}); 
 		Mapbox.addTo(map);
 	    
-	    	//Add Search; OSMGeocoder
-		var osmGeocoder = new L.Control.OSMGeocoder({position: 'topleft'});		    
+		var osmGeocoder = new L.Control.OSMGeocoder({position: 'topleft'}); //Adds Search toolbar; OSMGeocoder		    
 		map.addControl(osmGeocoder);
 	    
-	    	//Add Locate Control
-		var lc = L.control.locate({
+	  
+		var lc = L.control.locate({  //Adds Locate Control; to locate the user's location on the map
 	    		position: 'topleft',
 			icon: 'fa fa-hand-o-down'
 		});		
 		map.addControl(lc);		  
 	    
-		//Fetches
-		var getData = "https://" + config.cartoUsername + ".carto.com/api/v2/sql?format=GeoJSON&q=" + sqlQuery;
+	    
+		var getData = "https://" + config.cartoUsername + ".carto.com/api/v2/sql?format=GeoJSON&q=" + sqlQuery; //Fetches data input on the carto database
 		function getGeoJSON() {
 			$.getJSON(getData, function (data) {
 				cartoData = L.geoJson(data, {
@@ -162,8 +147,6 @@
 			dialog.dialog("open");
 		});
 		
-	    	//L.Icon.Default.prototype.options.iconUrl = 'https://image.flaticon.com/icons/svg/1754/1754527.svg';
-	    
 	    
 		var dialog = $("#dialog").dialog({
 			autoOpen: false,
@@ -203,10 +186,8 @@
 				enteredHours = "'" + hours.value + "'",
 				enteredNotes = "'" + notes.value + "'";				
 			drawnItems.eachLayer(function (layer) {
-			//Convert the drawing to a GeoJSON to pass to the Carto sql database
-				var drawing = "'" + JSON.stringify(layer.toGeoJSON().geometry) + "'",
-				  //Construct the SQL query to insert data from the three parameters: the drawing, the input username, and the input description of the drawn shape
-					sql = "SELECT " + config.cartoInsertFunction + "(";
+				var drawing = "'" + JSON.stringify(layer.toGeoJSON().geometry) + "'", 	//Converts the drawing to a GeoJSON
+					sql = "SELECT " + config.cartoInsertFunction + "("; //Constructs the SQL Query from the entered parameters on the dialog/form
 				sql += drawing;
 				sql += "," + enteredAddress;
 				sql += "," + enteredFname;
@@ -218,10 +199,10 @@
 				sql += "," + enteredNotes;				
 				sql += ");";
 				console.log(drawing);
-				//Sending the data
+				
 				$.ajax({
 					type: 'POST',
-					url: 'https://' + config.cartoUsername + '.carto.com/api/v2/sql',
+					url: 'https://' + config.cartoUsername + '.carto.com/api/v2/sql', //Sending the data to Carto
 					crossDomain: true,
 					data: {"q": sql},
 					dataType: 'json',
@@ -232,10 +213,7 @@
 						console.log("Problem saving the data");
 					}
 				});
-				/* 
-				* Transfer submitted drawing to the Carto layer, this results in the user's data appearing on the map without
-				* requerying the database (see the refreshLayer() function for an alternate way of doing this) 
-				*/
+
 				var newData = layer.toGeoJSON();
 				  newData.properties.address = address.value;
 				  newData.properties.name = fname.value;
@@ -254,13 +232,6 @@
 			console.log("drawnItems has been cleared");
 			map.removeLayer(drawnItems);
 			drawnItems = new L.FeatureGroup();
-		/* 
-			This would refresh the data-layer to include new data from the Carto table after each drawing is submitted. 
-		*/
-		//      if (map.hasLayer(cartoData)) {
-		//        map.removeLayer(cartoData);
-		//      };
-		//      getGeoJSON();
 		}
     </script>
   </body>
