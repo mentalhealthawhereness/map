@@ -3,12 +3,13 @@
 <html>
   <head>
     <meta charset=utf-8 name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-	  <meta http-equiv="X-UA-Compatible" content="IE=edge" />	
+	<!-- http://stackoverflow.com/a/3449338/4047679 -->
+	  <meta http-equiv="X-UA-Compatible" content="IE=edge" />	  
     <title>Mental Health aWHEREness: Point Collection Tool</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
-   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-   crossorigin=""/>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.13/leaflet.draw.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@0.7.7/dist/leaflet.css"
+  integrity="sha384-99ZJFcuBCh9c/V/+8YwDX/TUGG8JWMG+gKFJWzk0BZP3IoDMN+pLGd3/H0yjg4oa"
+  crossorigin=""/>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"/>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">	  
     <link rel="stylesheet" href="https://rawgit.com/k4r573n/leaflet-control-osm-geocoder/master/Control.OSMGeocoder.css" />
@@ -56,19 +57,24 @@
       </form>
     </div>
 
-    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
-   integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
-   crossorigin=""></script>	 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.13/leaflet.draw.js"></script>
+    <script src="https://unpkg.com/leaflet@0.7.7/dist/leaflet.js"
+      integrity="sha384-Lh7SNUss9JoImCvc96eCUnLX3HvY4kb0UZCWZbYWvceJ+o5CJeOJqqNoheaGkNHT"
+      crossorigin=""></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="https://rawgit.com/k4r573n/leaflet-control-osm-geocoder/master/Control.OSMGeocoder.js"></script>	      
     <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></script>	  	  
-    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.67.0/dist/L.Control.Locate.min.js" charset="utf-8"></script> 
- 
-	  
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.67.0/dist/L.Control.Locate.min.js" charset="utf-8"></script>  
 	  
     <script>
+	    	var newIcon = L.Icon({
+			iconUrl: 'https://image.flaticon.com/icons/svg/1754/1754527.svg',
+			iconSize: [64,74],
+			iconAnchor: [33,74],	
+		});	    
+	    
+	    
 		//TODO: Change to your username, insert function on Carto, and Carto tablename
 		var config = {
 			cartoUsername : "anditabinas",
@@ -80,35 +86,50 @@
 					polygon : false,
 					polyline : false,
 					rectangle : false,
+					/*Circles aren't supported by the GeoJSON spec, so won't get sent to the database properly. 
+					*http://stackoverflow.com/a/16944309/4047679
+					*/
 					circle : false,
                     			circlemarker : false,
-					marker: true								
+					marker: true
+			//			{
+			//			icon: newIcon
+			//		},									
 				},
 				edit : false,
 				remove: false
 			}
 		};	       
-		
-		var cartoData = null; // Add Data from Carto using the SQL API and declare variables
-		var sqlQuery = "SELECT the_geom, address, name, doctor, contactnum, fee, website, hours, notes FROM " + config.cartoTablename; 	//SQL Selection Query to be Used on Carto Table
-		var map = L.map('map', { center: config.mapcenter, zoom: 6}); // Initialize the map
+		// Add Data from Carto using the SQL API
+		// Declare Variables
+		// Create Global Variable to hold Carto points
+		var cartoData = null;
+		// Write SQL Selection Query to be Used on Carto Table
+		var sqlQuery = "SELECT the_geom, address, name, doctor, contactnum, fee, website, hours, notes FROM " + config.cartoTablename;
+		// Create Leaflet map object
+		var map = L.map('map', { center: config.mapcenter, zoom: 6});
+		// Add Tile Layer basemap
+		// Find your own at https://leaflet-extras.github.io/leaflet-providers/preview/
 		var Mapbox = L.tileLayer('https://api.mapbox.com/styles/v1/anditabinas/cjy8p77s50mq91cmxkhhcw2uw/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYW5kaXRhYmluYXMiLCJhIjoiY2plejI3aHp3MDV3MjMzcW9ydXl2bHNmZiJ9.9h6j7BbkM-PUtK0zaZ1iUg', {
-			attribution: '&copy; <a href="mapbox://styles/anditabinas/cjy8p77s50mq91cmxkhhcw2uw">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors', // Tile Layer basemap
+			attribution: '&copy; <a href="mapbox://styles/anditabinas/cjy8p77s50mq91cmxkhhcw2uw">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 			subdomains: 'abcd',
-			maxZoom: 19 
+			maxZoom: 19
 		}); 
 		Mapbox.addTo(map);
 	    
+	    	//Add Search; OSMGeocoder
 		var osmGeocoder = new L.Control.OSMGeocoder({position: 'topleft'});		    
-		map.addControl(osmGeocoder); //Search; OSMGeocoder	    
-	  
-		var lc = L.control.locate({   //Locate Control
+		map.addControl(osmGeocoder);
+	    
+	    	//Add Locate Control
+		var lc = L.control.locate({
 	    		position: 'topleft',
 			icon: 'fa fa-hand-o-down'
 		});		
 		map.addControl(lc);		  
 	    
-		var getData = "https://" + config.cartoUsername + ".carto.com/api/v2/sql?format=GeoJSON&q=" + sqlQuery; //Fetches data
+		//Fetches
+		var getData = "https://" + config.cartoUsername + ".carto.com/api/v2/sql?format=GeoJSON&q=" + sqlQuery;
 		function getGeoJSON() {
 			$.getJSON(getData, function (data) {
 				cartoData = L.geoJson(data, {
@@ -119,7 +140,6 @@
 			});
 		}
 		getGeoJSON();
-	    
 		var drawnItems = new L.FeatureGroup();
 		var drawControl = new L.Control.Draw(config.drawOptions);
 		var controlOnMap = false;
@@ -141,6 +161,8 @@
 			drawnItems.addLayer(layer);
 			dialog.dialog("open");
 		});
+		
+	    	//L.Icon.Default.prototype.options.iconUrl = 'https://image.flaticon.com/icons/svg/1754/1754527.svg';
 	    
 	    
 		var dialog = $("#dialog").dialog({
@@ -232,6 +254,13 @@
 			console.log("drawnItems has been cleared");
 			map.removeLayer(drawnItems);
 			drawnItems = new L.FeatureGroup();
+		/* 
+			This would refresh the data-layer to include new data from the Carto table after each drawing is submitted. 
+		*/
+		//      if (map.hasLayer(cartoData)) {
+		//        map.removeLayer(cartoData);
+		//      };
+		//      getGeoJSON();
 		}
     </script>
   </body>
