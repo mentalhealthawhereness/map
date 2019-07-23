@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.12/leaflet.draw.css"/>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@latest/dist/Control.Geocoder.js" />
 	  	  
   </head>
   <body>
@@ -60,7 +60,7 @@
       crossorigin=""></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.12/leaflet.draw.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>    
+    <script src="https://unpkg.com/leaflet-control-geocoder@latest/dist/Control.Geocoder.js"></script>    
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	  
     <script>
@@ -120,8 +120,9 @@
 		Mapbox.addTo(map);
 	    
 	    	//Add Search;Geocoder
-		var geocoder = new L.Control.geocoder.Nominatim({position: 'topleft'});
-		map.addControl(geocoder);
+		var geoCoder = new L.Control.Geocoder.Nominatim({position: 'topleft'});
+	    
+		map.addControl(geoCoder);
 	    
 
 		//Fetches
