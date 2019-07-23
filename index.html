@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <!--Based on https://github.com/radumas/crowdmap-basic and https://github.com/mjfoster83/web-map-workshop/blob/master/7_advancedMapping_CartoDB/index-completed.html-->
 <html>
@@ -7,16 +8,15 @@
 	  <meta http-equiv="X-UA-Compatible" content="IE=edge" />	  
     <title>Mental Health aWHEREness: Point Collection Tool</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
-  integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+  integrity="sha384-99ZJFcuBCh9c/V/+8YwDX/TUGG8JWMG+gKFJWzk0BZP3IoDMN+pLGd3/H0yjg4oa"
   crossorigin=""/>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"/>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">	  
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.12/leaflet.draw.css"/>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+	  
 	<!--<script src="../Control.OSMGeocoder.js"></script>-->
 	<!--<link rel="stylesheet" href="../Control.OSMGeocoder.css" />-->
     <link rel="stylesheet" href="https://rawgit.com/k4r573n/leaflet-control-osm-geocoder/master/Control.OSMGeocoder.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">	  
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.67.0/dist/L.Control.Locate.min.css" />
 	  	  
   </head>
   <body>
@@ -59,14 +59,13 @@
       </form>
     </div>
 
-    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
-      integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+    <script src="https://unpkg.com/leaflet@0.7.7/dist/leaflet.js"
+      integrity="sha384-Lh7SNUss9JoImCvc96eCUnLX3HvY4kb0UZCWZbYWvceJ+o5CJeOJqqNoheaGkNHT"
       crossorigin=""></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.12/leaflet.draw.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="https://rawgit.com/k4r573n/leaflet-control-osm-geocoder/master/Control.OSMGeocoder.js"></script>	      
-    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.67.0/dist/L.Control.Locate.min.js" charset="utf-8"></script>  
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	  
     <script>
 	    	var newIcon = L.Icon({
@@ -119,15 +118,8 @@
 		Mapbox.addTo(map);
 	    
 	    	//Add Search; OSMGeocoder
-		var osmGeocoder = new L.Control.OSMGeocoder({position: 'topleft'});		    
+		var osmGeocoder = new L.Control.OSMGeocoder({position: 'topleft'});
 		map.addControl(osmGeocoder);
-	    
-	    	//Add Locate Control
-		var lc = L.control.locate({
-	    		position: 'topleft',
-			icon: 'fa fa-map-marker'
-		});		
-		map.addControl(lc);		  
 	    
 		//Fetches
 		var getData = "https://" + config.cartoUsername + ".carto.com/api/v2/sql?format=GeoJSON&q=" + sqlQuery;
