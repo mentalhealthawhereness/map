@@ -36,6 +36,7 @@ h1 {
 #map {
   width: 100%;
   margin: 0 auto;
+  map: 800px;
 }
 
 #controls {
