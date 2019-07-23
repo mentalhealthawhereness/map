@@ -30,17 +30,18 @@ h1 {
 }
 
 #wrapper {
-  width: 99%;
+  width: 100%;
 }
 
 #map {
-  width: 99%;
+  width: 100%;
   margin: 0 auto;
   height: 750px;
 }
 
 #controls {
   width: 100%;
+  margin-top: 5px;
   margin-left: 10px;
   float: left;
 }
@@ -60,7 +61,8 @@ h1 {
 }
 
 #credits p {
-  margin-top: 1px;
+  margin-top: 5px;
+  margin-right: 4px;
   font-size: 8px;
   text-align: right;
   line-height: 10px;
