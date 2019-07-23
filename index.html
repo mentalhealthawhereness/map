@@ -12,7 +12,10 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.12/leaflet.draw.css"/>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder@latest/dist/Control.Geocoder.js" />
+	  
+	<!--<script src="../Control.OSMGeocoder.js"></script>-->
+	<!--<link rel="stylesheet" href="../Control.OSMGeocoder.css" />-->
+    <link rel="stylesheet" href="https://rawgit.com/k4r573n/leaflet-control-osm-geocoder/master/Control.OSMGeocoder.css" />
 	  	  
   </head>
   <body>
@@ -60,11 +63,10 @@
       crossorigin=""></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.12/leaflet.draw.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="https://unpkg.com/leaflet-control-geocoder@latest/dist/Control.Geocoder.js"></script>    
+    <script src="https://rawgit.com/k4r573n/leaflet-control-osm-geocoder/master/Control.OSMGeocoder.js"></script>	      
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	  
     <script>
-
 	    	var newIcon = L.Icon({
 			iconUrl: 'https://image.flaticon.com/icons/svg/1754/1754527.svg',
 			iconSize: [64,74],
@@ -97,16 +99,12 @@
 				remove: false
 			}
 		};	       
-
 		// Add Data from Carto using the SQL API
 		// Declare Variables
 		// Create Global Variable to hold Carto points
 		var cartoData = null;
-
 		// Write SQL Selection Query to be Used on Carto Table
 		var sqlQuery = "SELECT the_geom, address, name, doctor, contactnum, fee, website, hours, notes FROM " + config.cartoTablename;
-
-
 		// Create Leaflet map object
 		var map = L.map('map', { center: config.mapcenter, zoom: 6});
 		// Add Tile Layer basemap
@@ -116,18 +114,14 @@
 			subdomains: 'abcd',
 			maxZoom: 19
 		}); 
-
 		Mapbox.addTo(map);
 	    
-	    	//Add Search;Geocoder
-		var geoCoder = new L.Control.Geocoder.Nominatim({position: 'topright'});
+	    	//Add Search; OSMGeocoder
+		var osmGeocoder = new L.Control.OSMGeocoder({position: 'topright'});
+		map.addControl(osmGeocoder);
 	    
-		map.addControl(geoCoder);
-	    
-
 		//Fetches
 		var getData = "https://" + config.cartoUsername + ".carto.com/api/v2/sql?format=GeoJSON&q=" + sqlQuery;
-
 		function getGeoJSON() {
 			$.getJSON(getData, function (data) {
 				cartoData = L.geoJson(data, {
@@ -137,11 +131,8 @@
 				}).addTo(map);
 			});
 		}
-
 		getGeoJSON();
-
 		var drawnItems = new L.FeatureGroup();
-
 		var drawControl = new L.Control.Draw(config.drawOptions);
 		var controlOnMap = false;
 		function startEdits() {
@@ -156,8 +147,6 @@
 			map.removeControl(drawControl);
 			controlOnMap = false;
 		}
-
-
 		map.on(L.Draw.Event.CREATED, function (e) {
 	        var layer = e.layer;
 			map.addLayer(drawnItems);
@@ -192,13 +181,10 @@
 			}
 		});
 	    
-
-
 		form = dialog.find("form").on("submit", function (event) {
 			event.preventDefault();
 			setData();
 		});
-
 		function setData() {
 			var enteredFname = "'" + fname.value + "'",
 				enteredAddress = "'" + address.value + "'",
@@ -211,7 +197,6 @@
 			drawnItems.eachLayer(function (layer) {
 			//Convert the drawing to a GeoJSON to pass to the Carto sql database
 				var drawing = "'" + JSON.stringify(layer.toGeoJSON().geometry) + "'",
-
 				  //Construct the SQL query to insert data from the three parameters: the drawing, the input username, and the input description of the drawn shape
 					sql = "SELECT " + config.cartoInsertFunction + "(";
 				sql += drawing;
@@ -224,9 +209,7 @@
 				sql += "," + enteredHours;
 				sql += "," + enteredNotes;				
 				sql += ");";
-
 				console.log(drawing);
-
 				//Sending the data
 				$.ajax({
 					type: 'POST',
@@ -238,11 +221,9 @@
 						console.log("Data saved");
 					},
 					error: function (responseData, textStatus, errorThrown) {
-
 						console.log("Problem saving the data");
 					}
 				});
-
 				/* 
 				* Transfer submitted drawing to the Carto layer, this results in the user's data appearing on the map without
 				* requerying the database (see the refreshLayer() function for an alternate way of doing this) 
@@ -256,9 +237,7 @@
 				  newData.properties.website = website.value;
 				  newData.properties.hours = hours.value;
 				  newData.properties.notes = notes.value;					
-
 				cartoData.addData(newData);
-
 			});
 			
 			dialog.dialog("close");
@@ -278,4 +257,3 @@
     </script>
   </body>
 </html>
-
