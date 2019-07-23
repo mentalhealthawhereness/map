@@ -12,6 +12,12 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.12/leaflet.draw.css"/>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
+	  
+	<!--<script src="../Control.OSMGeocoder.js"></script>-->
+	<!--<link rel="stylesheet" href="../Control.OSMGeocoder.css" />-->
+    <script src="https://rawgit.com/k4r573n/leaflet-control-osm-geocoder/master/Control.OSMGeocoder.js"></script>
+    <link rel="stylesheet" href="https://rawgit.com/k4r573n/leaflet-control-osm-geocoder/master/Control.OSMGeocoder.css" />
+	  	  
   </head>
   <body>
     <div id="wrapper">
@@ -117,8 +123,7 @@
 		Mapbox.addTo(map);
 	    
 	    	//Add Search; OSMGeocoder
-	 	
-	    	var osmGeocoder = L.Control.OSMGeocoder({placeholder: 'Search location...'});
+		var osmGeocoder = L.Control.OSMGeocoder({placeholder: 'Search location...'});
 
 		map.addControl(osmGeocoder);
 	    
