@@ -69,7 +69,24 @@
 	  
     <script>
 
-		var MHIcon = L.Icon.extend({
+		var map = L.map('map', { center: [12.51166, 122.08007], zoom: 6});
+		var Mapbox = L.tileLayer('https://api.mapbox.com/styles/v1/anditabinas/cjy8p77s50mq91cmxkhhcw2uw/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYW5kaXRhYmluYXMiLCJhIjoiY2plejI3aHp3MDV3MjMzcW9ydXl2bHNmZiJ9.9h6j7BbkM-PUtK0zaZ1iUg', {
+			attribution: '&copy; <a href="mapbox://styles/anditabinas/cjy8p77s50mq91cmxkhhcw2uw">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+			minZoon: 2,
+			maxZoom: 19 
+		})addTo(map);	
+
+		var osmGeocoder = new L.Control.OSMGeocoder({position: 'topleft'}); //Adds Search toolbar; OSMGeocoder		    
+		map.addControl(osmGeocoder);
+	    
+		var lc = L.control.locate({  //Adds Locate Control; to locate the user's location on the map
+	    		position: 'topleft',
+				icon: 'fa fa-hand-o-down'
+		});		
+		map.addControl(lc);		  		
+		
+		
+		var MHIcon = L.Icon.extend({ //check
 			options: {
 				shadowUrl: null,
 				iconAnchor: new L.Point(12, 12),
@@ -77,71 +94,43 @@
 				iconUrl: 'https://image.flaticon.com/icons/svg/1971/1971489.svg'
 			}
 		});
-	
-		var config = { //TODO: Change to your username, insert function on Carto, and Carto tablename
-			cartoUsername : "anditabinas",
-			cartoInsertFunction : "insert_crowd_mapping_data",
-			cartoTablename : "mhloc",
-			mapcenter: [12.51166, 122.08007],
-			drawOptions: {
-				draw: {
-					polygon: false,
-					polyline: false,
-					rectangle: false,
-					circle: false,
-                    circlemarker: false,
-					marker: {
-						icon: MHIcon()
-					},
-					featureGroup: drawnItems,	
-				},
-				edit : false,
-				remove: false
-			}
-		};	       
 		
-		var map = L.map('map', { center: config.mapcenter, zoom: 6}); 	// Creates the Leaflet map object
-		var Mapbox = L.tileLayer('https://api.mapbox.com/styles/v1/anditabinas/cjy8p77s50mq91cmxkhhcw2uw/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYW5kaXRhYmluYXMiLCJhIjoiY2plejI3aHp3MDV3MjMzcW9ydXl2bHNmZiJ9.9h6j7BbkM-PUtK0zaZ1iUg', {
-			attribution: '&copy; <a href="mapbox://styles/anditabinas/cjy8p77s50mq91cmxkhhcw2uw">Mapbox</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-			subdomains: 'abcd',
-			maxZoom: 19 //Adds the tilelayer basemap; I used my mapbox style here.
-		}); 
-		Mapbox.addTo(map);
-	    
-		var osmGeocoder = new L.Control.OSMGeocoder({position: 'topleft'}); //Adds Search toolbar; OSMGeocoder		    
-		map.addControl(osmGeocoder);
-	    
-		var lc = L.control.locate({  //Adds Locate Control; to locate the user's location on the map
-	    		position: 'topleft',
-			icon: 'fa fa-hand-o-down'
-		});		
-		map.addControl(lc);		  
-	    
-		var sqlQuery = "SELECT the_geom, address, name, doctor, contactnum, fee, website, hours, notes FROM " + config.cartoTablename; //Query from Carto using the SQL API
-
-		var drawnItems = new L.FeatureGroup();
-		
-		var cartoData = null; //Null variable that will hold the data
+		var cartoData = null;
+		var sqlQuery = "SELECT the_geom, address, name, doctor, contactnum, fee, website, hours, notes FROM mhloc";
 		
 		function getGeoJSON(){
 			$.getJSON("https://anditabinas.carto.com/api/v2/sql?format=GeoJSON&q="+sqlQuery, function (data) {
 				cartoData = L.geoJson(data, {
-					onEachFeature: function (feature, layer) {
-						layer.bindPopup('<b>Name: </b>' + feature.properties.name + '<br>' + '<b>Doctor: </b>' + feature.properties.doctor + '<br>' + '<b>Address: </b>' + feature.properties.address + '<br>' + '<b>Contact Number: </b>' + feature.properties.contactnum + '<br>' + '<b>Fees (Initial/Succeeding): </b>' + feature.properties.fee + '<br>' + '<b>Website: </b>' + feature.properties.website + '<br>' + '<b>Opening Hours: </b>' + feature.properties.hours + '<br>' + '<b>Notes/Recommendations: </b>' + feature.properties.notes + '');
-					}, 
-					pointToLayer: function (feature, latlng) {
+					pointToLayer: function(feature, latlng){
 						var marker = L.marker(latlng,{icon: MHIcon});
+						marker.bindPopup('<b>Name: </b>' + feature.properties.name + '<br>' + '<b>Doctor: </b>' + feature.properties.doctor + '<br>' + '<b>Address: </b>' + feature.properties.address + '<br>' + '<b>Contact Number: </b>' + feature.properties.contactnum + '<br>' + '<b>Fees (Initial/Succeeding): </b>' + feature.properties.fee + '<br>' + '<b>Website: </b>' + feature.properties.website + '<br>' + '<b>Opening Hours: </b>' + feature.properties.hours + '<br>' + '<b>Notes/Recommendations: </b>' + feature.properties.notes + '');
 						return marker;
 					}
 				}).addTo(map);
 			});
 		};
 		getGeoJSON();
-	
-
 		
-		var drawControl = new L.Control.Draw(config.drawOptions);
+		var drawControl = new.L.Control.Draw({
+			draw: {
+					polygon: false,
+					polyline: false,
+					rectangle: false,
+					circle: false,
+                    circlemarker: false,
+					marker: {
+						icon: MHIcon() //check
+					},
+					featureGroup: drawnItems,	
+			},
+			edit : false,
+			remove: false
+			});	       
+
 		var controlOnMap = false;
+
+		var drawnItems = new L.FeatureGroup();
+
 		function startEdits() {
 			if (controlOnMap === true) {
 				map.removeControl(drawControl);
@@ -150,20 +139,19 @@
 			map.addControl(drawControl);
 			controlOnMap = true;
 		};
+
 		function stopEdits() {
 			map.removeControl(drawControl);
 			controlOnMap = false;
 		};
+
 		map.on(L.Draw.Event.CREATED, function (e) {
-	        var type = e.layerType,
-				layer = e.layer;
+	        var layer = e.layer;
 			map.addLayer(drawnItems);
-			drawnItems.addLayer(layer);
-			
+			drawnItems.addLayer(layer);			
 			dialog.dialog("open");
 		});
-		
-	    
+
 		var dialog = $("#dialog").dialog({
 			autoOpen: false,
 			height: 500,
@@ -187,12 +175,12 @@
 				console.log("Dialog closed");
 			}
 		});
-	    
-		form = dialog.find("form").on("submit", function (event) {
+
+	    var form = dialog.find("form").on("submit", function(event) {
 			event.preventDefault();
-			setData();
+			setData(); //check
 		});
-		
+
 		function setData() {
 			var enteredFname = "'" + fname.value + "'",
 				enteredAddress = "'" + address.value + "'",
@@ -203,19 +191,15 @@
 				enteredHours = "'" + hours.value + "'",
 				enteredNotes = "'" + notes.value + "'";				
 			drawnItems.eachLayer(function (layer) {
-				var drawing = "'" + JSON.stringify(layer.toGeoJSON().geometry) + "'", 	//Converts the drawing to a GeoJSON
-					sql = "SELECT " + config.cartoInsertFunction + "("; //Constructs the SQL Query from the entered parameters on the dialog/form
-				sql += drawing;
-				sql += "," + enteredAddress;
-				sql += "," + enteredFname;
-				sql += "," + enteredDoctor;
-				sql += "," + enteredContactnum;
-				sql += "," + enteredFee;
-				sql += "," + enteredWebsite;
-				sql += "," + enteredHours;
-				sql += "," + enteredNotes;				
-				sql += ");";
-				console.log(drawing);
+				var sql = "INSERT INTO mhloc the_geom, address, name, doctor, contactnum, fee, website, hours, notes) VALUES (ST_SetSRID(ST_GeomFromGeoJSON('";
+				var a = layer.getLatLng();
+				var sql2 = '{"type":"Point","coordinates":[' + a.lng + "," + a.lat + "]}'),4326),'" + enteredAddress + "," + enteredFname + "," + enteredDoctor + "," + enteredContactnum + "," + enteredFee + "," + enteredWebsite + "," + enteredHours + "," + enteredNotes + a.lat + "','" + a.lng +"')";
+				var pURL = sql+sql2
+				console.log(pURL);
+				submitToProxy(pURL);
+			console.log("Feature has been submitted to the Proxy");
+			});
+
 				$.ajax({
 					type: 'POST',
 					url: 'https://' + config.cartoUsername + '.carto.com/api/v2/sql', //Sending the data to Carto
@@ -248,8 +232,15 @@
 			console.log("drawnItems has been cleared");
 			map.removeLayer(drawnItems);
 			drawnItems = new L.FeatureGroup();
-		}
+		}			
+ 
+
+
+	
+
+	
+	
+			// cartoInsertFunction : "insert_crowd_mapping_data", //
+
+
 		
-    </script>
-  </body>
-</html>
