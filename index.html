@@ -118,24 +118,27 @@
 		map.addControl(lc);		  
 	    
 		var sqlQuery = "SELECT the_geom, address, name, doctor, contactnum, fee, website, hours, notes FROM " + config.cartoTablename; //Query from Carto using the SQL API
-		var getData = "https://" + config.cartoUsername + ".carto.com/api/v2/sql?format=GeoJSON&q=" + sqlQuery; //Fetches data input on the carto database
+
+		var drawnItems = new L.FeatureGroup();
 		
 		var cartoData = null; //Null variable that will hold the data
 		
-		$.getJSON(getData, function (data) {
-			cartoData = L.geoJson(data, {
-				onEachFeature: function (feature, layer) {
-					layer.bindPopup('<b>Name: </b>' + feature.properties.name + '<br>' + '<b>Doctor: </b>' + feature.properties.doctor + '<br>' + '<b>Address: </b>' + feature.properties.address + '<br>' + '<b>Contact Number: </b>' + feature.properties.contactnum + '<br>' + '<b>Fees (Initial/Succeeding): </b>' + feature.properties.fee + '<br>' + '<b>Website: </b>' + feature.properties.website + '<br>' + '<b>Opening Hours: </b>' + feature.properties.hours + '<br>' + '<b>Notes/Recommendations: </b>' + feature.properties.notes + '');
-				}, 
-				pointToLayer: function (feature, latlng) {
-					var marker = L.marker(latlng,{icon: MHIcon});
-					return marker;
-				}
-			}).addTo(map);
-		});
+		function getGeoJSON(){
+			$.getJSON("https://anditabinas.carto.com/api/v2/sql?format=GeoJSON&q="+sqlQuery, function (data) {
+				cartoData = L.geoJson(data, {
+					onEachFeature: function (feature, layer) {
+						layer.bindPopup('<b>Name: </b>' + feature.properties.name + '<br>' + '<b>Doctor: </b>' + feature.properties.doctor + '<br>' + '<b>Address: </b>' + feature.properties.address + '<br>' + '<b>Contact Number: </b>' + feature.properties.contactnum + '<br>' + '<b>Fees (Initial/Succeeding): </b>' + feature.properties.fee + '<br>' + '<b>Website: </b>' + feature.properties.website + '<br>' + '<b>Opening Hours: </b>' + feature.properties.hours + '<br>' + '<b>Notes/Recommendations: </b>' + feature.properties.notes + '');
+					}, 
+					pointToLayer: function (feature, latlng) {
+						var marker = L.marker(latlng,{icon: MHIcon});
+						return marker;
+					}
+				}).addTo(map);
+			});
+		};
+		getGeoJSON();
 	
-		var drawnItems = new L.FeatureGroup();
-		map.addLayer(drawnItems);
+
 		
 		var drawControl = new L.Control.Draw(config.drawOptions);
 		var controlOnMap = false;
@@ -146,16 +149,17 @@
 			}
 			map.addControl(drawControl);
 			controlOnMap = true;
-		}
+		};
 		function stopEdits() {
 			map.removeControl(drawControl);
 			controlOnMap = false;
-		}
+		};
 		map.on(L.Draw.Event.CREATED, function (e) {
 	        var type = e.layerType,
 				layer = e.layer;
-
+			map.addLayer(drawnItems);
 			drawnItems.addLayer(layer);
+			
 			dialog.dialog("open");
 		});
 		
