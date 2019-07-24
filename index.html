@@ -100,14 +100,7 @@
 	               position: 'topleft',
 	           icon: 'fa fa-hand-o-down'
 	       });     
-	       map.addControl(lc);  
-
-	       var marker = L.marker([55,-19],{title:"Click to show window." }).addTo(map);
-		   
-		   marker.on('click',function(){
-		   
-		   var win =  L.control.window(map,{title:'Hello world!',content:'This is my first control window.'})
-           .show()		
+	       map.addControl(lc);  	
 			   
 	      	       
 	       var getData = "https://" + config.cartoUsername + ".carto.com/api/v2/sql?format=GeoJSON&q=" + sqlQuery; //Fetches data input on the carto database
