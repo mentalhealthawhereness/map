@@ -12,6 +12,7 @@
 	<link href="https://rawgit.com/k4r573n/leaflet-control-osm-geocoder/master/Control.OSMGeocoder.css" rel="stylesheet">
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.67.0/dist/L.Control.Locate.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://rawgit.com/mapshakers/leaflet-control-window/master/src/L.Control.Window.css" />
 </head>
 <body>
 	<div id="wrapper">
@@ -58,6 +59,8 @@
 	<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
 	<script src="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></script> 
 	<script charset="utf-8" src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.67.0/dist/L.Control.Locate.min.js"></script> 
+	<script src="https://rawgit.com/mapshakers/leaflet-control-window/master/src/L.Control.Window.js"></script>
+	
 	
 	<script>
 
@@ -97,7 +100,10 @@
 	               position: 'topleft',
 	           icon: 'fa fa-hand-o-down'
 	       });     
-	       map.addControl(lc);       
+	       map.addControl(lc);  
+
+	       var win =  L.control.window(map,{title:'Hello world!',content:'This is my first control window.'})
+           .show()   
 	      	       
 	       var getData = "https://" + config.cartoUsername + ".carto.com/api/v2/sql?format=GeoJSON&q=" + sqlQuery; //Fetches data input on the carto database
 	       function getGeoJSON() {
