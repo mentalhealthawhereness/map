@@ -60,12 +60,17 @@
 	<script src="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></script> 
 	<script charset="utf-8" src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.67.0/dist/L.Control.Locate.min.js"></script> 
 	<script>
-	           var newIcon = L.Icon({
-	           iconUrl: 'https://image.flaticon.com/icons/svg/1754/1754527.svg',
-	           iconSize: [64,74],
-	           iconAnchor: [33,74],    
-	       });     
-	       
+  	       
+		    var MyCustomMarker = L.Icon.extend({
+				options: {
+					shadowUrl: null,
+					iconAnchor: new L.Point(12, 12),
+					iconSize: new L.Point(24, 24),
+					iconUrl: 'fa fa-hand-o-down'
+				}
+			});
+		   
+		   
 	       var config = { //TODO: Change to your username, insert function on Carto, and Carto tablename
 	           cartoUsername: "anditabinas",
 	           cartoInsertFunction: "insert_crowd_mapping_data",
@@ -78,7 +83,9 @@
 	                   rectangle: false,
 	                   circle: false,
 	                   circlemarker: false,
-	                   marker: true                                    
+	                   marker: {
+						icon: new MyCustomMarker()
+						}
 	               },
 	               edit: false,
 	               remove: false
