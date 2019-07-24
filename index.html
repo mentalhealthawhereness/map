@@ -69,14 +69,15 @@
 	  
     <script>
 
-		var MHIcon = L.Icon({
-			shadowUrl: null,
-			iconAnchor: [12, 12],
-			iconSize: [24, 24],
-			iconUrl: 'https://image.flaticon.com/icons/svg/1971/1971489.svg'
+		var MHIcon = L.Icon.extend({
+			options: {
+				shadowUrl: null,
+				iconAnchor: new L.Point(12, 12),
+				iconSize: new L.Point(24, 24),
+				iconUrl: 'https://image.flaticon.com/icons/svg/1971/1971489.svg'
+			}
 		});
 	
-	    
 		var config = { //TODO: Change to your username, insert function on Carto, and Carto tablename
 			cartoUsername : "anditabinas",
 			cartoInsertFunction : "insert_crowd_mapping_data",
@@ -125,7 +126,8 @@
 			cartoData = L.geoJson(data, {
 				onEachFeature: function (feature, layer) {
 					layer.bindPopup('<b>Name: </b>' + feature.properties.name + '<br>' + '<b>Doctor: </b>' + feature.properties.doctor + '<br>' + '<b>Address: </b>' + feature.properties.address + '<br>' + '<b>Contact Number: </b>' + feature.properties.contactnum + '<br>' + '<b>Fees (Initial/Succeeding): </b>' + feature.properties.fee + '<br>' + '<b>Website: </b>' + feature.properties.website + '<br>' + '<b>Opening Hours: </b>' + feature.properties.hours + '<br>' + '<b>Notes/Recommendations: </b>' + feature.properties.notes + '');
-			}, pointToLayer: function (feature, latlng) {
+				}, 
+				pointToLayer: function (feature, latlng) {
 					var marker = L.marker(latlng,{icon: MHIcon});
 					return marker;
 				}
@@ -186,6 +188,7 @@
 			event.preventDefault();
 			setData();
 		});
+		
 		function setData() {
 			var enteredFname = "'" + fname.value + "'",
 				enteredAddress = "'" + address.value + "'",
@@ -209,7 +212,6 @@
 				sql += "," + enteredNotes;				
 				sql += ");";
 				console.log(drawing);
-				
 				$.ajax({
 					type: 'POST',
 					url: 'https://' + config.cartoUsername + '.carto.com/api/v2/sql', //Sending the data to Carto
@@ -222,7 +224,7 @@
 					error: function (responseData, textStatus, errorThrown) {
 						console.log("Problem saving the data");
 					}
-				});
+				});				
 				var newData = layer.toGeoJSON();
 				  newData.properties.address = address.value;
 				  newData.properties.name = fname.value;
@@ -237,11 +239,13 @@
 			
 			dialog.dialog("close");
 		}
+		
 		function refreshLayer() {
 			console.log("drawnItems has been cleared");
 			map.removeLayer(drawnItems);
 			drawnItems = new L.FeatureGroup();
 		}
+		
     </script>
   </body>
 </html>
