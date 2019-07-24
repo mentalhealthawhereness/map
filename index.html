@@ -60,7 +60,15 @@
 	<script src="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></script> 
 	<script charset="utf-8" src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.67.0/dist/L.Control.Locate.min.js"></script> 
 	<script>
-  	       
+
+	       var MyCustomMarker = L.Icon.extend({
+		   options: {
+	               shadowUrl: null,
+	               iconAnchor: new L.Point(12, 12),		
+	               iconSize: new L.Point(24, 24),				   
+	               iconUrl: 'https://image.flaticon.com/icons/svg/1971/1971489.svg'
+		   }
+	       });		
 		    	   
 	       var config = { //TODO: Change to your username, insert function on Carto, and Carto tablename
 	           cartoUsername: "anditabinas",
@@ -75,7 +83,7 @@
 	                   circle: false,
 	                   circlemarker: false,
 	                   marker: {
-				icon: 'fas fa-heartbeat'
+				icon: new MyCustomMarker()
 				}
 	               },
 	               edit: false,
