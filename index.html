@@ -70,13 +70,29 @@
 	<script charset="utf-8" src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.67.0/dist/L.Control.Locate.min.js">
 	</script> 
 	<script>
-	       
+	           var newIcon = L.Icon({
+	           iconUrl: 'https://image.flaticon.com/icons/svg/1754/1754527.svg',
+	           iconSize: [64,74],
+	           iconAnchor: [33,74],    
+	       });     
 	       
 	       var config = { //TODO: Change to your username, insert function on Carto, and Carto tablename
-	           cartoUsername: "anditabinas",
-	           cartoInsertFunction: "insert_crowd_mapping_data",
-	           cartoTablename: "mhloc",
-	           mapcenter: [12.51166, 122.08007]
+	           cartoUsername : "anditabinas",
+	           cartoInsertFunction : "insert_crowd_mapping_data",
+	           cartoTablename : "mhloc",
+	           mapcenter: [12.51166, 122.08007],
+	           drawOptions: {
+	               draw : {
+	                   polygon : false,
+	                   polyline : false,
+	                   rectangle : false,
+	                   circle : false,
+	                               circlemarker : false,
+	                   marker: true                                    
+	               },
+	               edit : false,
+	               remove: false
+	           }
 	       };         
 	       
 	       var cartoData = null; //These adds data from Carto using the SQL API, declares variables, and writes the SQL selection query
@@ -89,39 +105,16 @@
 	       }); 
 	       Mapbox.addTo(map);
 	       
-	       var MyCustomMarker = L.Icon.extend({
-	           options: {
-	               shadowUrl: null,
-	               iconAnchor: new L.Point(12, 12),
-	               iconSize: new L.Point(24, 24),
-	               iconUrl: 'https://glyphicons.com/img/glyphicons/basic/2x/glyphicons-basic-629-heartbeat@2x.png'
-	           }
-	       });
-	       
-	           var options = {
-	           draw: {
-	               polygon: false,
-	               polyline: false,
-	               rectangle: false,
-	               circle: false,
-	                           circlemarker: false,
-	               marker: {
-	                   icon: new MyCustomMarker()
-	               }
-	           }   
-	           edit: false,
-	           remove: false
-	       };
-	       
-	       
 	       var osmGeocoder = new L.Control.OSMGeocoder({position: 'topleft'}); //Adds Search toolbar; OSMGeocoder          
 	       map.addControl(osmGeocoder);
 	       
+	     
 	       var lc = L.control.locate({  //Adds Locate Control; to locate the user's location on the map
 	               position: 'topleft',
 	           icon: 'fa fa-hand-o-down'
 	       });     
 	       map.addControl(lc);       
+	       
 	       
 	       var getData = "https://" + config.cartoUsername + ".carto.com/api/v2/sql?format=GeoJSON&q=" + sqlQuery; //Fetches data input on the carto database
 	       function getGeoJSON() {
@@ -134,12 +127,9 @@
 	           });
 	       }
 	       getGeoJSON();
-	       
 	       var drawnItems = new L.FeatureGroup();
-	       
-	           var drawControl = new L.Control.Draw(options);
-	       
-	           var controlOnMap = false;
+	       var drawControl = new L.Control.Draw(config.drawOptions);
+	       var controlOnMap = false;
 	       function startEdits() {
 	           if (controlOnMap === true) {
 	               map.removeControl(drawControl);
@@ -188,7 +178,6 @@
 	           event.preventDefault();
 	           setData();
 	       });
-	       
 	       function setData() {
 	           var enteredFname = "'" + fname.value + "'",
 	               enteredAddress = "'" + address.value + "'",
