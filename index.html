@@ -71,9 +71,9 @@
 	    
 	    
 		var config = { //TODO: Change to your username, insert function on Carto, and Carto tablename
-			cartoUsername : "anditabinas",
-			cartoInsertFunction : "insert_crowd_mapping_data",
-			cartoTablename : "mhloc",
+			cartoUsername: "anditabinas",
+			cartoInsertFunction: "insert_crowd_mapping_data",
+			cartoTablename: "mhloc",
 			mapcenter: [12.51166, 122.08007]
 		};	       
 		
@@ -105,25 +105,21 @@
                     		circlemarker: false,
 				marker: {
 					icon: new MyCustomMarker()
-				}	
-			},
+				}
+			}	
 			edit: false,
 			remove: false
-			}
 		};
 		
-	    
 	    
 		var osmGeocoder = new L.Control.OSMGeocoder({position: 'topleft'}); //Adds Search toolbar; OSMGeocoder		    
 		map.addControl(osmGeocoder);
 	    
-	  
 		var lc = L.control.locate({  //Adds Locate Control; to locate the user's location on the map
 	    		position: 'topleft',
 			icon: 'fa fa-hand-o-down'
 		});		
 		map.addControl(lc);		  
-	    
 	    
 		var getData = "https://" + config.cartoUsername + ".carto.com/api/v2/sql?format=GeoJSON&q=" + sqlQuery; //Fetches data input on the carto database
 		function getGeoJSON() {
@@ -136,9 +132,12 @@
 			});
 		}
 		getGeoJSON();
+	    
 		var drawnItems = new L.FeatureGroup();
-		var drawControl = new L.Control.Draw(options);
-		var controlOnMap = false;
+		
+	    	var drawControl = new L.Control.Draw(options);
+		
+	    	var controlOnMap = false;
 		function startEdits() {
 			if (controlOnMap === true) {
 				map.removeControl(drawControl);
@@ -187,6 +186,7 @@
 			event.preventDefault();
 			setData();
 		});
+	    
 		function setData() {
 			var enteredFname = "'" + fname.value + "'",
 				enteredAddress = "'" + address.value + "'",
