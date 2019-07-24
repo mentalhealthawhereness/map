@@ -62,14 +62,12 @@
 	<script>
   	       
 
-		    var MyCustomMarker = L.Icon.extend({
-				options: {
-					shadowUrl: null,
-					iconAnchor: new L.Point(12, 12),
-					iconSize: new L.Point(24, 24),
-					iconUrl: 'https://image.flaticon.com/icons/svg/1971/1971489.svg'
-				}
-			});
+		    var MyCustomMarker = L.Icon({
+				shadowUrl: null,
+				iconAnchor: [12, 12],
+				iconSize: [24, 24],
+				iconUrl: 'https://image.flaticon.com/icons/svg/1971/1971489.svg'
+		    });
 		   
 		   
 	       var config = { //TODO: Change to your username, insert function on Carto, and Carto tablename
