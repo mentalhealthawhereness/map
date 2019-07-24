@@ -13,7 +13,10 @@
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.67.0/dist/L.Control.Locate.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://rawgit.com/mapshakers/leaflet-control-window/master/src/L.Control.Window.css" />
-
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+    <link rel="stylesheet" href="css/TripgoRouting.css" />
+	
+	
 </head>
 <body>
 	<div id="wrapper">
@@ -61,7 +64,14 @@
 	<script src="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></script> 
 	<script charset="utf-8" src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.67.0/dist/L.Control.Locate.min.js"></script> 
 	<script src="https://rawgit.com/mapshakers/leaflet-control-window/master/src/L.Control.Window.js"></script>
-	
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+    <script src="dist/TripgoRouting.js"></script>
+    <script src="lib/jquery-3.2.1.js"></script>
+    <script src="lib/Polyline-encoded.js"></script>
+
+	<script>
+		L.tripgoRouting.mapLayer.initialize();
+	</script>
 	
 	<script>
 
