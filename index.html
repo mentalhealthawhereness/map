@@ -90,7 +90,8 @@
 	               edit: false,
 	               remove: false
 	           }
-	       };         
+	       };
+	       drawnItems.addLayer(layer);		
 	       
 	       var cartoData = null; //These adds data from Carto using the SQL API, declares variables, and writes the SQL selection query
 	       var sqlQuery = "SELECT the_geom, address, name, doctor, contactnum, fee, website, hours, notes FROM " + config.cartoTablename;
