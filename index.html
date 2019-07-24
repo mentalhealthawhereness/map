@@ -89,8 +89,11 @@
 					rectangle: false,
 					circle: false,
                     circlemarker: false,
-					marker: true									
-				},
+					marker: {
+						icon: MHIcon()
+					},
+					featureGroup: drawnItems,	
+				}
 				edit : false,
 				remove: false
 			}
@@ -129,9 +132,9 @@
 			}).addTo(map);
 		});
 	
-
-		
 		var drawnItems = new L.FeatureGroup();
+		map.addLayer(drawnItems);
+		
 		var drawControl = new L.Control.Draw(config.drawOptions);
 		var controlOnMap = false;
 		function startEdits() {
@@ -147,8 +150,9 @@
 			controlOnMap = false;
 		}
 		map.on(L.Draw.Event.CREATED, function (e) {
-	        var layer = e.layer;
-			map.addLayer(drawnItems);
+	        var type = e.layerType,
+				layer = e.layer;
+
 			drawnItems.addLayer(layer);
 			dialog.dialog("open");
 		});
