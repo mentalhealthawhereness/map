@@ -60,16 +60,17 @@
 	<script src="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></script> 
 	<script charset="utf-8" src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.67.0/dist/L.Control.Locate.min.js"></script> 
 	<script>
-
-	       var MyCustomMarker = L.Icon.extend({
-		   options: {
-	               shadowUrl: null,
-	               iconAnchor: new L.Point(12, 12),		
-	               iconSize: new L.Point(24, 24),				   
-	               iconUrl: 'https://image.flaticon.com/icons/svg/1971/1971489.svg'
-		   }
-	       });		
-		    	   
+  	       
+		    var MyCustomMarker = L.Icon.extend({
+				options: {
+					shadowUrl: null,
+					iconAnchor: new L.Point(12, 12),
+					iconSize: new L.Point(24, 24),
+					iconUrl: 'https://image.flaticon.com/icons/svg/1971/1971489.svg'
+				}
+			});
+		   
+		   
 	       var config = { //TODO: Change to your username, insert function on Carto, and Carto tablename
 	           cartoUsername: "anditabinas",
 	           cartoInsertFunction: "insert_crowd_mapping_data",
@@ -83,15 +84,14 @@
 	                   circle: false,
 	                   circlemarker: false,
 	                   marker: {
-				icon: new MyCustomMarker()
-				},
-			   featureGroup: drawnItems,
+						icon: new MyCustomMarker()
+						},
+	                   featureGroup: drawnItems,
 	               },
 	               edit: false,
 	               remove: false
 	           }
-	       };
-	       drawnItems.addLayer(layer);		
+	       };         
 	       
 	       var cartoData = null; //These adds data from Carto using the SQL API, declares variables, and writes the SQL selection query
 	       var sqlQuery = "SELECT the_geom, address, name, doctor, contactnum, fee, website, hours, notes FROM " + config.cartoTablename;
@@ -126,6 +126,8 @@
 	       }
 	       getGeoJSON();
 	       var drawnItems = new L.FeatureGroup();
+		   map.addLayer(drawnItems);
+		   
 	       var drawControl = new L.Control.Draw(config.drawOptions);
 	       var controlOnMap = false;
 	       function startEdits() {
@@ -142,7 +144,6 @@
 	       }
 	       map.on(L.Draw.Event.CREATED, function (e) {
 	           var layer = e.layer;
-	           map.addLayer(drawnItems);
 	           drawnItems.addLayer(layer);
 	           dialog.dialog("open");
 	       });
