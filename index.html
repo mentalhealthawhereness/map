@@ -15,6 +15,9 @@
     <link rel="stylesheet" href="https://rawgit.com/k4r573n/leaflet-control-osm-geocoder/master/Control.OSMGeocoder.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">	  
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.67.0/dist/L.Control.Locate.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" />	  
+    <link rel="stylesheet" href="https://rawgit.com/mapshakers/leaflet-control-window/master/src/L.Control.Window.css" /> 
+	 
 	  	  
   </head>
   <body>
@@ -65,7 +68,10 @@
     <script src="https://rawgit.com/k4r573n/leaflet-control-osm-geocoder/master/Control.OSMGeocoder.js"></script>	      
     <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></script>	  	  
-    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.67.0/dist/L.Control.Locate.min.js" charset="utf-8"></script>  
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.67.0/dist/L.Control.Locate.min.js" charset="utf-8"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js"></script>
+    <script src="https://rawgit.com/mapshakers/leaflet-control-window/master/src/L.Control.Window.js"></script>	  
+	  
 	  
     <script>
 	    	var newIcon = L.Icon({
@@ -111,7 +117,18 @@
 	    		position: 'topleft',
 			icon: 'fa fa-hand-o-down'
 		});		
-		map.addControl(lc);		  
+		map.addControl(lc);
+	    
+	    
+		var win = L.control.window(map,{title:'Hi! Thank you for visiting the Mental Health aWHEREness Map.',maxWidth:400,modal: true})
+			.content('Through this platform, you may view mental health facilities and services and their details. You may also help in mapping these places. Just click on the buttons above to start editing points on the map. Please also visit our website for more detailed instructions and for the list of mental health facilities and services that need to be located on the map. Your local spatial knowledge is very much helpful in our goals to encourage people to seek professional help.')
+			.prompt.buttonOK
+			.show()
+			.position('center')
+			.visible(true)
+		});
+			
+
 	    
 	    
 		var getData = "https://" + config.cartoUsername + ".carto.com/api/v2/sql?format=GeoJSON&q=" + sqlQuery; //Fetches data input on the carto database
