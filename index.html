@@ -61,11 +61,12 @@
 	<script charset="utf-8" src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.67.0/dist/L.Control.Locate.min.js"></script> 
 	<script>
   	       
-		    var MyCustomMarker = L.Icon.extend({
+
+		   var MyCustomMarker = L.Icon.extend({
 				options: {
 					shadowUrl: null,
-					iconAnchor: [12, 12],
-					iconSize: [24, 24],
+					iconAnchor: new L.Point(12, 12),
+					iconSize: new L.Point(24, 24),
 					iconUrl: 'https://image.flaticon.com/icons/svg/1971/1971489.svg'
 				}
 			});
@@ -118,6 +119,9 @@
 	       function getGeoJSON() {
 	           $.getJSON(getData, function (data) {
 	               cartoData = L.geoJson(data, {
+	                   pointToLayer: function (feature, latlng) {
+	                       return L.Marker(latlng, MyCustomMarker);
+	                   },					
 	                   onEachFeature: function (feature, layer) {
 	                       layer.bindPopup('<b>Name: <\/b>' + feature.properties.name + '<br>' + '<b>Doctor: <\/b>' + feature.properties.doctor + '<br>' + '<b>Address: <\/b>' + feature.properties.address + '<br>' + '<b>Contact Number: <\/b>' + feature.properties.contactnum + '<br>' + '<b>Fees (Initial/Succeeding): <\/b>' + feature.properties.fee + '<br>' + '<b>Website: <\/b>' + feature.properties.website + '<br>' + '<b>Opening Hours: <\/b>' + feature.properties.hours + '<br>' + '<b>Notes/Recommendations: <\/b>' + feature.properties.notes + '');
 	                   }           
