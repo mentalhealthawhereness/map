@@ -125,7 +125,8 @@
 	           });
 	       }
 	       getGeoJSON();
-	       var drawnItems = new L.FeatureGroup();
+	       
+		   var drawnItems = new L.FeatureGroup();
 		   map.addLayer(drawnItems);
 		   
 	       var drawControl = new L.Control.Draw(config.drawOptions);
@@ -143,7 +144,8 @@
 	           controlOnMap = false;
 	       }
 	       map.on(L.Draw.Event.CREATED, function (e) {
-	           var layer = e.layer;
+	           var type = e.layerType,
+					layer = e.layer;
 	           drawnItems.addLayer(layer);
 	           dialog.dialog("open");
 	       });
