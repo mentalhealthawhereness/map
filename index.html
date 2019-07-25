@@ -117,7 +117,7 @@
 	                  }).addTo(map);
 			     
 	                  var clusters = L.markerClusterGroup();
-	                  clusters.addLayer(cartoData);			      
+	                  clusters.addLayer(cartoData(getRandomLatLng(map)));			      
 	                  map.addLayer(clusters);			      			   
 	              });
 	          }
