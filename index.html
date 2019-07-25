@@ -109,16 +109,7 @@
 	       });     
 	       map.addControl(lc);
 	       
-	       var markers = L.markerClusterGroup();
-		
-		   for (var i = 0; i < drawnItems.length; i++) {
-		      var a = drawnItems[i];
-		      var title = a[2];
-		      var marker = L.marker(new L.LatLng(a[0], a[1]), { title: title });
-		      marker.bindPopup(title);
-		      markers.addLayer(marker);
-		      }
-		      
+	       var markers = L.markerClusterGroup();		      
 		   map.addLayer(markers);
 	         
 	         
