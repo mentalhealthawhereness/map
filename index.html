@@ -137,15 +137,13 @@
 	              var layer = e.layer;
 	              map.addLayer(drawnItems);
 	              drawnItems.addLayer(layer);
-	              dialog.dialog("open");
-
-	              var clusters = L.markerClusterGroup();			  
-	              clusters.addLayer(drawnItems(getRandomLatLng(map)));	
-	              map.addLayer(clusters);		      		  
-			  
+	              dialog.dialog("open");	      		  			  
 	          });
-	          
-     
+	          		
+	          var clusters = L.markerClusterGroup();		
+	          clusters.addLayer(drawnItems(getRandomLatLng(map)));		          
+	          map.addLayer(clusters);			
+	              		
 	          
 	          var dialog = $("#dialog").dialog({
 	              autoOpen: false,
