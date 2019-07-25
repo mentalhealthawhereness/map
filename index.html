@@ -139,10 +139,7 @@
 	          map.on(L.Draw.Event.CREATED, function (e) {
 	              var layer = e.layer;
 	              map.addLayer(drawnItems);
-	              drawnItems.addLayer(layer);
-	              var clusters = L.markerClusterGroup(); 			  
-	              clusters.addLayer(layer);
-	              map.addLayer(clusters); 			  
+	              drawnItems.addLayer(layer);		  
 	              dialog.dialog("open");	      		  			  
 	          });
 	          					
