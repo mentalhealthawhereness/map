@@ -15,6 +15,8 @@
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.67.0/dist/L.Control.Locate.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://rawgit.com/mapshakers/leaflet-control-window/master/src/L.Control.Window.css" />
+	<link rel="stylesheet" href="../dist/MarkerCluster.css" />	
+	
 </head>
 <body>
 	<div id="wrapper">
@@ -64,25 +66,26 @@
 	<script src="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></script> 
 	<script charset="utf-8" src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.67.0/dist/L.Control.Locate.min.js"></script> 
 	<script src="https://rawgit.com/mapshakers/leaflet-control-window/master/src/L.Control.Window.js"></script>
+	<script src="../dist/leaflet.markercluster-src.js"></script>	
 	
 	
 	<script>
 
 	       var config = { //TODO: Change to your username, insert function on Carto, and Carto tablename
-	           cartoUsername : "anditabinas",
+	           cartoUsername: "anditabinas",
 	           cartoInsertFunction : "insert_crowd_mapping_data",
-	           cartoTablename : "mhloc",
+	           cartoTablename: "mhloc",
 	           mapcenter: [12.51166, 122.08007],
 	           drawOptions: {
-	               draw : {
-	                   polygon : false,
-	                   polyline : false,
-	                   rectangle : false,
-	                   circle : false,
-	                               circlemarker : false,
+	               draw: {
+	                   polygon: false,
+	                   polyline: false,
+	                   rectangle: false,
+	                   circle: false,
+	                               circlemarker: false,
 	                   marker: true                                    
 	               },
-	               edit : false,
+	               edit: false,
 	               remove: false
 	           }
 	       };         
@@ -104,7 +107,11 @@
 	               position: 'topleft',
 	           icon: 'fa fa-hand-o-down'
 	       });     
-	       map.addControl(lc);  	
+	       map.addControl(lc);
+	       
+	       var markers = L.markerClusterGroup();
+	       markers.addLayer(L.marker(getRandomLatLng(map)));
+	       map.addLayer(markers);
 			   
 	      	       
 	       var getData = "https://" + config.cartoUsername + ".carto.com/api/v2/sql?format=GeoJSON&q=" + sqlQuery; //Fetches data input on the carto database
