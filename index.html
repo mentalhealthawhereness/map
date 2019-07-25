@@ -118,9 +118,6 @@
 	                          layer.bindPopup('<b>Name: <\/b>' + feature.properties.name + '<br>' + '<b>Doctor: <\/b>' + feature.properties.doctor + '<br>' + '<b>Address: <\/b>' + feature.properties.address + '<br>' + '<b>Contact Number: <\/b>' + feature.properties.contactnum + '<br>' + '<b>Fees (Initial/Succeeding): <\/b>' + feature.properties.fee + '<br>' + '<b>Website: <\/b>' + feature.properties.website + '<br>' + '<b>Opening Hours: <\/b>' + feature.properties.hours + '<br>' + '<b>Notes/Recommendations: <\/b>' + feature.properties.notes + '');
 	                      }           
 	                  }).addTo(map);
-	                  var clusters = L.markerCluserGroup();			      
-	                  clusters.addLayer(drawnItems);
-	                  map.addLayer(clusters);
 	              });
 	          }
 	          getGeoJSON();
@@ -143,10 +140,13 @@
 	              var layer = e.layer;
 	              map.addLayer(drawnItems);
 	              drawnItems.addLayer(layer);
+	              var clusters = L.markerClusterGroup(); 			  
+	              clusters.addLayer(layer);
+	              map.addLayer(clusters); 			  
 	              dialog.dialog("open");	      		  			  
 	          });
 	          					
-	          
+		
 	          var dialog = $("#dialog").dialog({
 	              autoOpen: false,
 	              height: 500,
