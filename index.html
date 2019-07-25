@@ -140,6 +140,8 @@
 	              dialog.dialog("open");
 	          });
 	          
+ 
+	          
 	          
 	          var dialog = $("#dialog").dialog({
 	              autoOpen: false,
@@ -225,6 +227,15 @@
 	              map.removeLayer(drawnItems);
 	              drawnItems = new L.FeatureGroup();
 	          }
+	          
+	           
+	          var clusters = L.markerClusterGroup();
+	              clusters.addLayer(drawnItems)           
+	              map.addLayer(clusters); 	           
+	          });
+	          
+	          
+	          
 	</script>
 </body>
 </html>
