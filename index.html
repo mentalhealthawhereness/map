@@ -109,10 +109,12 @@
 	       });     
 	       map.addControl(lc);
 	       
-	       var markers = L.markerClusterGroup();
-	       map.addLayer(markers);
-	         
-	       
+           var markers = L.markerClusterGroup({
+                spiderfyOnMaxZoom: false,
+                showCoverageOnHover: false,
+                zoomToBoundsOnClick: false
+                });
+           map.addLayer(markers);
 	       
 
 	       var getData = "https://" + config.cartoUsername + ".carto.com/api/v2/sql?format=GeoJSON&q=" + sqlQuery; //Fetches data input on the carto database
