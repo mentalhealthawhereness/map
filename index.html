@@ -112,7 +112,7 @@
 	          
 	          var zoomTo = L.map('zoomto', {scrollWheelZoom: false}).setView([37.8, -96], 4);
 	          L.easyButton( 'fa-star', function(){          
-	           zoomTo.setView([38, 139],4);
+	                  zoomTo.setView([38, 139],4);	          
 	          }).addTo(zoomTo);  	         
 	         
 	          var getData = "https://" + config.cartoUsername + ".carto.com/api/v2/sql?format=GeoJSON&q=" + sqlQuery; //Fetches data input on the carto database
