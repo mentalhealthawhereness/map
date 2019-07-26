@@ -128,38 +128,9 @@
 	              }),						
 	              routeWhileDragging: true,
 	              geocoder: L.Control.Geocoder.nominatim({})										  
-	          }).addTo(map);				 
-			 
-	          function createButton(label, container) { 			 
-	              var btn = L.DomUtil.create('button', '', container);		 
-	              btn.setAttribute('type', 'button');	 			  
- 	              btn.innerHTML = label;	
- 	              return btn;				  
-	          }
-			  
-	          map.on('contextmenu', function(e) {			 
-	              var container = L.DomUtil.create('div'),
-	                  startBtn = createButton('Start from this location', container),
-	                  destBtn = createButton('Go to this location', container);
-					  
-	              L.popup()	 			  
-	                  .setContent(container)
-	                  .setLatLng(e.latlng)		  
-	                  .openOn(map);			  
-	          });			  
-
-	          L.DomEvent.on(startBtn, 'contextmenu', function() { 			 
-	              control.spliceWaypoints(0, 1, e.latlng);		 
-	              map1.closePopup();	 			  
-	          });
-
-	          L.DomEvent.on(destBtn, 'contextmenu', function() {			 
-	              control.spliceWaypoints(control.getWaypoints().length - 1, 1, e.latlng);		 
-	              map1.closePopup();	 			  
-	          });			  
+	          }).addTo(map);				 		  
         	 
-			 
-			 
+			 			 
 			 
 	          var getData = "https://" + config.cartoUsername + ".carto.com/api/v2/sql?format=GeoJSON&q=" + sqlQuery; //Fetches data input on the carto database
 	          function getGeoJSON() {
