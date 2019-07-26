@@ -14,7 +14,6 @@
 	<link href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.67.0/dist/L.Control.Locate.min.css" rel="stylesheet">
 	<link href="https://rawgit.com/mapshakers/leaflet-control-window/master/src/L.Control.Window.css" rel="stylesheet">
 	<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
-	<link rel="stylesheet" href="dist/leaflet-control-credits.css" />
 <!--	<link href='https://github.com/anditabinas/mhawhereness/blob/master/leaflet-routing-machine.css' rel='stylesheet' /> -->	
 <!--	<link rel="stylesheet" href="https://github.com/anditabinas/mhawhereness/blob/master/css/MarkerCluster.css" /> -->
 <!--	<link rel="stylesheet" href="https://github.com/anditabinas/mhawhereness/blob/master/leaflet-easy-button.css" /> -->
@@ -34,6 +33,7 @@
 		<div id="credits">
 			<p>Github Leaflet Draw Collection Tool &copy;2015, Mike Foster and Raphael Dumas</p>
 			<p>Mental Health aWHEREness &copy;2019, Sandra Tabinas</p>
+			<p><a href="https://mentalhealthawhereness.com"><img src="https://mhaphmap.files.wordpress.com/2019/05/mhaphlogo-1.png" alt="Mental Health aWHEREness" style="width:60px; height:50px; border:0"></a></p>
 		</div>
 	</div>
 	<div id="dialog" title="MH Service/Facility Details">
@@ -116,9 +116,8 @@
 	                  position: 'topleft',
 	              icon: 'fa fa-hand-o-down'
 	          });     
-	          map.addControl(lc);		  
-  
-	       	 			 
+	          map.addControl(lc);
+
 			 
 	          var getData = "https://" + config.cartoUsername + ".carto.com/api/v2/sql?format=GeoJSON&q=" + sqlQuery; //Fetches data input on the carto database
 	          function getGeoJSON() {
