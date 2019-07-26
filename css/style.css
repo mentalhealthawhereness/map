@@ -36,6 +36,10 @@ label {
   font-weight: bold;
 }  
 
+footer {
+  align: middle;
+}
+
 #dialog {
   font-size: 12px;
   font-family: 'Open Sans', Roboto, sans-serif;
