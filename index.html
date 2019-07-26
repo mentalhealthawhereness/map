@@ -117,12 +117,17 @@
 	          });     
 	          map.addControl(lc);			          	         
 	         
-	          L.Routing.control({
+	          var control = L.Routing.control({
 	              waypoints: [
 	                  L.latLng(14.651426, 121.049283),
 	                  L.latLng(14.6418, 121.047835)	
-	              ],					  
-	          routeWhileDragging: true    
+	              ],
+	              router: new L.Routing.osrmv1({
+	                  language: 'en',
+	                  profile: 'car',					  
+	              }),						
+	              routeWhileDragging: true,
+	              geocoder: L.Control.Geocoder.nominatim({})										  
 	          }).addTo(map);				 
 			 
 	          function createButton(label, container) { 			 
