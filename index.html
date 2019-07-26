@@ -14,6 +14,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.67.0/dist/L.Control.Locate.min.css" rel="stylesheet">
 	<link href="https://rawgit.com/mapshakers/leaflet-control-window/master/src/L.Control.Window.css" rel="stylesheet">
 	<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
+	<link rel="stylesheet" href="dist/leaflet-control-credits.css" />
 <!--	<link href='https://github.com/anditabinas/mhawhereness/blob/master/leaflet-routing-machine.css' rel='stylesheet' /> -->	
 <!--	<link rel="stylesheet" href="https://github.com/anditabinas/mhawhereness/blob/master/css/MarkerCluster.css" /> -->
 <!--	<link rel="stylesheet" href="https://github.com/anditabinas/mhawhereness/blob/master/leaflet-easy-button.css" /> -->
@@ -72,7 +73,7 @@
 	<script src="https://github.com/anditabinas/mhawhereness/blob/master/leaflet-tag-filter-button.js"></script>
 	<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
 <!--	<script src='https://github.com/anditabinas/mhawhereness/blob/master/leaflet-routing-machine.js'></script> -->	
-	
+	<script type="text/javascript" src="dist/leaflet-control-credits.js"></script>
 	
 	<script>
 
@@ -115,7 +116,14 @@
 	                  position: 'topleft',
 	              icon: 'fa fa-hand-o-down'
 	          });     
-	          map.addControl(lc);			          	         
+	          map.addControl(lc);
+
+	          var credctrl = L.controlCredits({
+	              image: "https://mhaphmap.files.wordpress.com/2019/05/mhaphlogo-1.png",
+	              link: "http://mentalhealthawhereness.com/",					
+	              text: "Mental Health aWHEREness: Point Collection Tool by anditabinas"		  
+	          }).addTo(map);		  
+  
 	       	 			 
 			 
 	          var getData = "https://" + config.cartoUsername + ".carto.com/api/v2/sql?format=GeoJSON&q=" + sqlQuery; //Fetches data input on the carto database
