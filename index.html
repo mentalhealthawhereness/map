@@ -14,6 +14,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.67.0/dist/L.Control.Locate.min.css" rel="stylesheet">
 	<link href="https://rawgit.com/mapshakers/leaflet-control-window/master/src/L.Control.Window.css" rel="stylesheet">
 	<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
+	<link href='https://github.com/anditabinas/mhawhereness/blob/master/leaflet-routing-machine.css' rel='stylesheet' />	
 <!--	<link rel="stylesheet" href="https://github.com/anditabinas/mhawhereness/blob/master/css/MarkerCluster.css" /> -->
 <!--	<link rel="stylesheet" href="https://github.com/anditabinas/mhawhereness/blob/master/leaflet-easy-button.css" /> -->
 <!--	<link rel="stylesheet" href="https://github.com/anditabinas/mhawhereness/blob/master/leaflet-tag-filter-button.css" /> -->
@@ -70,6 +71,7 @@
 	<script src="https://github.com/anditabinas/mhawhereness/blob/master/leaflet-easy-button.js"></script>
 	<script src="https://github.com/anditabinas/mhawhereness/blob/master/leaflet-tag-filter-button.js"></script>
 	<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
+	<script src='https://github.com/anditabinas/mhawhereness/blob/master/leaflet-routing-machine.js'></script>	
 	
 	
 	<script>
@@ -115,6 +117,45 @@
 	          });     
 	          map.addControl(lc);			          	         
 	         
+	          L.Routing.control({
+	              waypoints: [
+	                  L.latLng(14.651426, 121.049283),
+	                  L.latLng(14.6418, 121.047835)	
+	              ],					  
+	          routeWhileDragging: true    
+	          }).addTo(map);				 
+			 
+	          function createButton(label, container) { 			 
+	              var btn = L.DomUtil.create('button', '', container);		 
+	              btn.setAttribute('type', 'button');	 			  
+ 	              btn.innerHTML = label;	
+ 	              return btn;				  
+	          }
+			  
+	          map.on('contextmenu', function(e) {			 
+	              var container = L.DomUtil.create('div'),
+	                  startBtn = createButton('Start from this location', container),
+	                  destBtn = createButton('Go to this location', container);
+					  
+	              L.popup()	 			  
+	                  .setContent(container)
+	                  .setLatLng(e.latlng)		  
+	                  .openOn(map);			  
+	          });			  
+
+	          L.DomEvent.on(startBtn, 'contextmenu', function() { 			 
+	              control.spliceWaypoints(0, 1, e.latlng);		 
+	              map1.closePopup();	 			  
+	          });
+
+	          L.DomEvent.on(destBtn, 'contextmenu', function() {			 
+	              control.spliceWaypoints(control.getWaypoints().length - 1, 1, e.latlng);		 
+	              map1.closePopup();	 			  
+	          });			  
+        	 
+			 
+			 
+			 
 	          var getData = "https://" + config.cartoUsername + ".carto.com/api/v2/sql?format=GeoJSON&q=" + sqlQuery; //Fetches data input on the carto database
 	          function getGeoJSON() {
 	              $.getJSON(getData, function (data) {
