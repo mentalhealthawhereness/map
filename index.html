@@ -13,7 +13,6 @@
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 	<link href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.67.0/dist/L.Control.Locate.min.css" rel="stylesheet">
 	<link href="https://rawgit.com/mapshakers/leaflet-control-window/master/src/L.Control.Window.css" rel="stylesheet">
-	<link rel="stylesheet" href="L.Control.Basemaps.css" />
 <!--	<link rel="stylesheet" href="https://github.com/anditabinas/mhawhereness/blob/master/css/MarkerCluster.css" /> -->
 <!--	<link rel="stylesheet" href="https://github.com/anditabinas/mhawhereness/blob/master/leaflet-easy-button.css" /> -->
 <!--	<link rel="stylesheet" href="https://github.com/anditabinas/mhawhereness/blob/master/leaflet-tag-filter-button.css" /> -->
@@ -69,7 +68,6 @@
 	<script src="https://github.com/anditabinas/mhawhereness/blob/master/leaflet.markercluster.js"></script>
 	<script src="https://github.com/anditabinas/mhawhereness/blob/master/leaflet-easy-button.js"></script>
 	<script src="https://github.com/anditabinas/mhawhereness/blob/master/leaflet-tag-filter-button.js"></script>
-	<script src="L.Control.Basemaps-min.js"></script>
 	
 	
 	<script>
@@ -102,27 +100,6 @@
 	              maxZoom: 19 //Adds the tilelayer basemap; I used my mapbox style here.
 	          }); 
 	          Mapbox.addTo(map);
-
-	          var basemaps = [
-				  L.tileLayer('https://api.mapbox.com/styles/v1/anditabinas/cjyjmf59304gk1cn09qxyi6qb/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYW5kaXRhYmluYXMiLCJhIjoiY2plejI3aHp3MDV3MjMzcW9ydXl2bHNmZiJ9.9h6j7BbkM-PUtK0zaZ1iUg', {
-					  attribution: '&copy; <a href="mapbox://styles/anditabinas/cjyjmf59304gk1cn09qxyi6qb">Mapbox<\/a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap<\/a> contributors',
-					  subdomains: 'abcd',
-					  maxZoom: 19,
-					  label: 'Mapbox Street' //Adds the tilelayer basemap; I used my mapbox style here.				  
-				  }),
-				  L.tileLayer('https://api.mapbox.com/styles/v1/anditabinas/cjy8ot8d30m9e1es2m1yv4sva/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYW5kaXRhYmluYXMiLCJhIjoiY2plejI3aHp3MDV3MjMzcW9ydXl2bHNmZiJ9.9h6j7BbkM-PUtK0zaZ1iUg', {
-					  attribution: '&copy; <a href="mapbox://styles/anditabinas/cjy8ot8d30m9e1es2m1yv4sva">Mapbox<\/a>,
-					  subdomains: 'abcd',
-					  maxZoom: 19,
-					  label: 'Navigation-Night'
-				  })
-	          ];
-	          map.addControl(L.control.basemaps({
-				  basemaps: basemaps,
-				  tileX: 0,			
-				  tileY: 0,		
-				  tileZ: 1,
-	          }));		  
 	          
 	          var osmGeocoder = new L.Control.OSMGeocoder({position: 'topleft'}); //Adds Search toolbar; OSMGeocoder       
 	          map.addControl(osmGeocoder);
