@@ -30,6 +30,17 @@ h1 {
   font-weight: lighter;
 }
 
+h2 {
+  line-height: 25px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-size: 20px;
+  color: #3086B5;
+  font-weight: lighter;
+}
+
+
 label {
   font-size: 12px;
   font-weight: bold;
