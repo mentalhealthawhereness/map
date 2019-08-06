@@ -16,14 +16,14 @@ img {
 }
 
 p {
-  font-size: 12px;
-  line-height: 10px;
+  font-size: 15px;
+  line-height: 25px;
 }
 
 h1 {
   line-height: 35px;
-  margin-top: 4px;
-  margin-bottom: 0px;
+  margin-top: 15px;
+  margin-bottom: 10px;
   margin-left: 10px;
   color: #3173D8;
   font-size: 40px;
@@ -79,5 +79,5 @@ label {
   margin-top: 7px;
   font-size: 10px;
   text-align: right;
-  line-height: 2px;
+  line-height: 4px;
 }
