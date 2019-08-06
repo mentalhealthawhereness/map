@@ -32,13 +32,11 @@ h1 {
 
 label {
   font-size: 12px;
-  font-family: 'Open Sans', Mallanna, sans-serif;
   font-weight: bold;
 }  
 
 #dialog {
   font-size: 12px;
-  font-family: 'Open Sans', Mallanna, sans-serif;
 }
 
 
@@ -57,6 +55,7 @@ label {
   margin-top: 10px;
   margin-left: 10px;
   margin-bottom: 6px;
+  font-family: 'Open Sans', Mallanna, sans-serif;  
   font-size: 12px;
   float: left;
 }
