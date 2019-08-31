@@ -49,6 +49,10 @@
 					<li><textarea cols="40" id="address" name="address" placeholder="Where can we find this?" rows="5"></textarea></li>
 					<li><label for="contactnum">Contact Number</label></li>
 					<li><input id="contactnum" name="contactnum" placeholder="Telephone or Mobile number to call" size="40" type="text" required></li>
+
+					<li><label for="email">Email Address</label></li>
+					<li><input id="email" name="email" placeholder="Email Address" size="40" type="text" required></li>					
+					
 					<li><label for="fee">Initial and Succeeding Fees</label></li>
 					<li><input id="fee" name="fee" placeholder="Separate by comma if succeeding fees are diff. from initial" size="40" type="text"></li>
 					<li><label for="website">Website or Other Details</label></li>
@@ -98,7 +102,7 @@
 	          };         
 	          
 	          var cartoData = null; //These adds data from Carto using the SQL API, declares variables, and writes the SQL selection query
-	          var sqlQuery = "SELECT the_geom, address, name, doctor, contactnum, fee, website, hours, notes FROM " + config.cartoTablename;
+	          var sqlQuery = "SELECT the_geom, address, name, doctor, contactnum, email, fee, website, hours, notes FROM " + config.cartoTablename;
 	          var map = L.map('map', { center: config.mapcenter, zoom: 6});   // Creates the Leaflet map object
 	          map.addControl(new L.Control.Fullscreen());
 		
@@ -125,7 +129,7 @@
 	              $.getJSON(getData, function (data) {
 	                  cartoData = L.geoJson(data, {
 	                      onEachFeature: function (feature, layer) {
-	                          layer.bindPopup('<b>Name: <\/b>' + feature.properties.name + '<br>' + '<b>Doctor: <\/b>' + feature.properties.doctor + '<br>' + '<b>Address: <\/b>' + feature.properties.address + '<br>' + '<b>Contact Number: <\/b>' + feature.properties.contactnum + '<br>' + '<b>Fees (Initial/Succeeding): <\/b>' + feature.properties.fee + '<br>' + '<b>Website: <\/b>' + feature.properties.website + '<br>' + '<b>Opening Hours: <\/b>' + feature.properties.hours + '<br>' + '<b>Notes/Recommendations: <\/b>' + feature.properties.notes + '');
+	                          layer.bindPopup('<b>Name: <\/b>' + feature.properties.name + '<br>' + '<b>Doctor: <\/b>' + feature.properties.doctor + '<br>' + '<b>Address: <\/b>' + feature.properties.address + '<br>' + '<b>Contact Number: <\/b>' + feature.properties.contactnum + '<b>Email Address: <\/b>' + feature.properties.email + '<br>' + '<b>Fees (Initial/Succeeding): <\/b>' + feature.properties.fee + '<br>' + '<b>Website: <\/b>' + feature.properties.website + '<br>' + '<b>Opening Hours: <\/b>' + feature.properties.hours + '<br>' + '<b>Notes/Recommendations: <\/b>' + feature.properties.notes + '');
 	                      }           
 	                  }).addTo(map);
 	              });
@@ -187,6 +191,7 @@
 	                  enteredAddress = "'" + address.value + "'",
 	                  enteredDoctor = "'" + doctor.value + "'",
 	                  enteredContactnum = "'" + contactnum.value + "'",
+	                  enteredEmail = "'" + email.value + "'",			  
 	                  enteredFee = "'" + fee.value + "'",
 	                  enteredWebsite = "'" + website.value + "'",
 	                  enteredHours = "'" + hours.value + "'",
@@ -199,6 +204,7 @@
 	                  sql += "," + enteredFname;
 	                  sql += "," + enteredDoctor;
 	                  sql += "," + enteredContactnum;
+	                  sql += "," + enteredEmail;			      
 	                  sql += "," + enteredFee;
 	                  sql += "," + enteredWebsite;
 	                  sql += "," + enteredHours;
@@ -224,6 +230,7 @@
 	                    newData.properties.name = fname.value;
 	                    newData.properties.doctor = doctor.value;
 	                    newData.properties.contactnum = contactnum.value;
+	                    newData.properties.contactnum = email.value;			      
 	                    newData.properties.fee = fee.value;
 	                    newData.properties.website = website.value;
 	                    newData.properties.hours = hours.value;
