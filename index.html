@@ -101,14 +101,14 @@
 	          
 	          var cartoData = null; //These adds data from Carto using the SQL API, declares variables, and writes the SQL selection query
 	          var sqlQuery = "SELECT the_geom, address, name, doctor, contactnum, email, fee, website, hours, notes FROM " + config.cartoTablename;
-	          var map = L.map('map', { center: config.mapcenter, zoom: 4});   // Creates the Leaflet map object
+	          var map = L.map('map', { center: config.mapcenter, zoom: 6});   // Creates the Leaflet map object
 	          map.addControl(new L.Control.Fullscreen());
 		
 				  
-	          var Mapbox = L.tileLayer('https://api.mapbox.com/styles/v1/anditabinas/ck03pvtqi66x01cqt1669bd0c/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYW5kaXRhYmluYXMiLCJhIjoiY2plejI3aHp3MDV3MjMzcW9ydXl2bHNmZiJ9.9h6j7BbkM-PUtK0zaZ1iUg', {
-	              attribution: '&copy; <a href="mapbox://styles/anditabinas/ck03pvtqi66x01cqt1669bd0c">Mapbox<\/a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap<\/a> contributors',
+	          var Mapbox = L.tileLayer('https://api.mapbox.com/styles/v1/anditabinas/ck03q2as91fiq1cnz83d1mrjp/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiYW5kaXRhYmluYXMiLCJhIjoiY2plejI3aHp3MDV3MjMzcW9ydXl2bHNmZiJ9.9h6j7BbkM-PUtK0zaZ1iUg', {
+	              attribution: '&copy; <a href="mapbox://styles/anditabinas/ck03q2as91fiq1cnz83d1mrjp">Mapbox<\/a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap<\/a> contributors',
 	              subdomains: 'abcd',
-	              maxZoom: 19 //Adds the tilelayer basemap; I used my mapbox style here.
+	              maxZoom: 20 //Adds the tilelayer basemap; I used my mapbox style here.
 	          }); 
 	          Mapbox.addTo(map);
 	          
