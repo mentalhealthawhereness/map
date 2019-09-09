@@ -186,15 +186,15 @@
 	          });
 			  
 	          function setData() {	  
-	              var enteredFname = "'" + Fname.replace("'", "' '") + "'",
-	                  enteredAddress = "'" + Address.replace("'", "''") + "'",
-	                  enteredDoctor = "'" + Doctor.replace("'", "''") + "'",
-	                  enteredContactnum = "'" + Contactnum.replace("'", "''") + "'",
-	                  enteredEmail = "'" + Email.replace("'", "''") + "'",
-	                  enteredFee = "'" + Fee.replace("'", "''") + "'",
-	                  enteredWebsite = "'" + Website.replace("'", "''") + "'",
-	                  enteredHours = "'" + Hours.replace("'", "''") + "'",
-	                  enteredNotes = "'" + Notes.replace("'", "''") + "'";
+	              var enteredFname = "'" + Fname.value.replace("'", "' '") + "'",
+	                  enteredAddress = "'" + Address.value.replace("'", "''") + "'",
+	                  enteredDoctor = "'" + Doctor.value.replace("'", "''") + "'",
+	                  enteredContactnum = "'" + Contactnum.value.replace("'", "''") + "'",
+	                  enteredEmail = "'" + Email.value.replace("'", "''") + "'",
+	                  enteredFee = "'" + Fee.value.replace("'", "''") + "'",
+	                  enteredWebsite = "'" + Website.value.replace("'", "''") + "'",
+	                  enteredHours = "'" + Hours.value.replace("'", "''") + "'",
+	                  enteredNotes = "'" + Notes.value.replace("'", "''") + "'";
 			  
 	              drawnItems.eachLayer(function (layer) {
 	                  var drawing = "'" + JSON.stringify(layer.toGeoJSON().geometry) + "'",   //Converts the drawing to a GeoJSON
