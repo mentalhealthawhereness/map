@@ -193,15 +193,15 @@
 	                  enteredHours = "'" + hours.value + "'",
 	                  enteredNotes = "'" + notes.value + "'";
 			  
-	              var newFname = "'" + enteredFname.replace("'", "''") + "'",			  
-	                  newAddress = "'" + enteredAddress.replace("'", "''") + "'",
-	                  newDoctor = "'" + enteredDoctor.replace("'", "''") + "'",
-	                  newContactnum = "'" + enteredDoctor.replace("'", "''") + "'",
-	                  newEmail = "'" + enteredEmail.replace("'", "''") + "'",
-	                  newFee = "'" + enteredFee.replace("'", "''") + "'",
-	                  newWebsite = "'" + enteredWebsite.replace("'", "''") + "'",
-	                  newHours = "'" + enteredHours.replace("'", "''") + "'",
-	                  newNotes = "'" + enteredNotes.replace("'", "''") + "'";			  
+	              var newFname = "'" + enteredFname.replace(''', '''') + "'",			  
+	                  newAddress = "'" + enteredAddress.replace(''', '''') + "'",
+	                  newDoctor = "'" + enteredDoctor.replace(''', '''') + "'",
+	                  newContactnum = "'" + enteredContactnum.replace(''', '''') + "'",
+	                  newEmail = "'" + enteredEmail.replace(''', '''') + "'",
+	                  newFee = "'" + enteredFee.replace(''', '''') + "'",
+	                  newWebsite = "'" + enteredWebsite.replace(''', '''') + "'",
+	                  newHours = "'" + enteredHours.replace(''', '''') + "'",
+	                  newNotes = "'" + enteredNotes.replace(''', '''') + "'";			  
 			  
 	              drawnItems.eachLayer(function (layer) {
 	                  var drawing = "'" + JSON.stringify(layer.toGeoJSON().geometry) + "'",   //Converts the drawing to a GeoJSON
