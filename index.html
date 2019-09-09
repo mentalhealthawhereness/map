@@ -185,15 +185,15 @@
 	              setData();
 	          });
 	          function setData() {
-	              var userFname = fname.value, 
-	                  userAddress = address.value,
-	                  userDoctor = doctor.value,
-	                  userContactnum = contactnum.value,
-	                  userEmail = email.value, 
-	                  userFee = fee.value,
-	                  userWebsite = website.value,
-	                  userHours = hours.value,
-	                  userNotes = notes.value;
+	              var userFname = "'" + fname.value + "'", 
+	                  userAddress = "'" + address.value + "'",
+	                  userDoctor = "'" + doctor.value + "'",
+	                  userContactnum = "'" + contactnum.value + "'",
+	                  userEmail = "'" + email.value + "'", 
+	                  userFee = "'" + fee.value + "'",
+	                  userWebsite = "'" + website.value + "'",
+	                  userHours = "'" + hours.value + "'",
+	                  userNotes = "'" + notes.value + "'";
 			  
 	              var enteredFname = "'" + userFname.replace("'", "' '") + "'",
 			  enteredAddress = "'" + userAddress.replace("'", "''") + "'",
