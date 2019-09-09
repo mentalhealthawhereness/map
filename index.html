@@ -185,26 +185,16 @@
 	              setData();
 	          });
 			  
-	          function setData() {
-	              var userFname = "'" + fname.value + "'", 
-	                  userAddress = "'" + address.value + "'",
-	                  userDoctor = "'" + doctor.value + "'",
-	                  userContactnum = "'" + contactnum.value + "'",
-	                  userEmail = "'" + email.value + "'", 
-	                  userFee = "'" + fee.value + "'",
-	                  userWebsite = "'" + website.value + "'",
-	                  userHours = "'" + hours.value + "'",
-	                  userNotes = "'" + notes.value + "'";
-			  
-	              var enteredFname = "'" + userFname.replace("'", "' '") + "'",
-	                  enteredAddress = "'" + userAddress.replace("'", "''") + "'",
-	                  enteredDoctor = "'" + userDoctor.replace("'", "''") + "'",
-	                  enteredContactnum = "'" + userContactnum.replace("'", "''") + "'",
-	                  enteredEmail = "'" + userEmail.replace("'", "''") + "'",
-	                  enteredFee = "'" + userFee.replace("'", "''") + "'",
-	                  enteredWebsite = "'" + userWebsite.replace("'", "''") + "'",
-	                  enteredHours = "'" + userHours.replace("'", "''") + "'",
-	                  enteredNotes = "'" + userNotes.replace("'", "''") + "'";
+	          function setData() {	  
+	              var enteredFname = "'" + Fname.replace("'", "' '") + "'",
+	                  enteredAddress = "'" + Address.replace("'", "''") + "'",
+	                  enteredDoctor = "'" + Doctor.replace("'", "''") + "'",
+	                  enteredContactnum = "'" + Contactnum.replace("'", "''") + "'",
+	                  enteredEmail = "'" + Email.replace("'", "''") + "'",
+	                  enteredFee = "'" + Fee.replace("'", "''") + "'",
+	                  enteredWebsite = "'" + Website.replace("'", "''") + "'",
+	                  enteredHours = "'" + Hours.replace("'", "''") + "'",
+	                  enteredNotes = "'" + Notes.replace("'", "''") + "'";
 			  
 	              drawnItems.eachLayer(function (layer) {
 	                  var drawing = "'" + JSON.stringify(layer.toGeoJSON().geometry) + "'",   //Converts the drawing to a GeoJSON
