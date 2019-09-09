@@ -41,8 +41,8 @@
 		<form>
 			<fieldset style="border: none;">
 				<ul style="list-style-type: none; padding-left: 0px">
-					<li><label for="name">Name</label></li>
-					<li><input id="name" name="name" placeholder="Name of Service/Facility" size="40" type="text" required></li>
+					<li><label for="fname">Name</label></li>
+					<li><input id="fname" name="fname" placeholder="Name of Service/Facility" size="40" type="text" required></li>
 					<li><label for="doctor">Doctor</label></li>
 					<li><textarea cols="40" id="doctor" name="doctor" placeholder="Who should we look for?" rows="5"></textarea></li>
 					<li><label for="address">Address</label></li>
@@ -186,7 +186,7 @@
 	          });
 			  
 	          function setData() {
-	              var userName = "'" + name.value + "'", 
+	              var userFname = "'" + fname.value + "'", 
 	                  userAddress = "'" + address.value + "'",
 	                  userDoctor = "'" + doctor.value + "'",
 	                  userContactnum = "'" + contactnum.value + "'",
@@ -196,7 +196,7 @@
 	                  userHours = "'" + hours.value + "'",
 	                  userNotes = "'" + notes.value + "'";
 			  
-	              var enteredname = "'" + username.replace(''', '''') + "'",
+	              var enteredFname = "'" + userFname.replace(''', '''') + "'",
 	                  enteredAddress = "'" + userAddress.replace(''', '''') + "'",
 	                  enteredDoctor = "'" + userDoctor.replace(''', '''') + "'",
 	                  enteredContactnum = "'" + userContactnum.replace(''', '''') + "'",
@@ -212,7 +212,7 @@
 			      
 	                  sql += drawing;
 	                  sql += "," + enteredAddress;
-	                  sql += "," + enteredname;
+	                  sql += "," + enteredFname;
 	                  sql += "," + enteredDoctor;
 	                  sql += "," + enteredContactnum;
 	                  sql += "," + enteredEmail;			      
@@ -238,15 +238,15 @@
 	                  });
 					  
 	                  var newData = layer.toGeoJSON();
-	                    newData.properties.address = address.value;
-	                    newData.properties.name = name.value;
-	                    newData.properties.doctor = doctor.value;
-	                    newData.properties.contactnum = contactnum.value;
-	                    newData.properties.email = email.value;			      
-	                    newData.properties.fee = fee.value;
-	                    newData.properties.website = website.value;
-	                    newData.properties.hours = hours.value;
-	                    newData.properties.notes = notes.value;                   
+	                    newData.properties.address = enteredaddress.value;
+	                    newData.properties.name = enteredfname.value;
+	                    newData.properties.doctor = entereddoctor.value;
+	                    newData.properties.contactnum = enteredcontactnum.value;
+	                    newData.properties.email = enteredemail.value;			      
+	                    newData.properties.fee = enteredfee.value;
+	                    newData.properties.website = enteredwebsite.value;
+	                    newData.properties.hours = enteredhours.value;
+	                    newData.properties.notes = enterednotes.value;                   
 	                  cartoData.addData(newData);
 	              });
 	              
