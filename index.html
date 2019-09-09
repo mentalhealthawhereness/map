@@ -238,15 +238,15 @@
 	                  });
 					  
 	                  var newData = layer.toGeoJSON();
-	                    newData.properties.address = enteredaddress.value;
-	                    newData.properties.name = enteredfname.value;
-	                    newData.properties.doctor = entereddoctor.value;
-	                    newData.properties.contactnum = enteredcontactnum.value;
-	                    newData.properties.email = enteredemail.value;			      
-	                    newData.properties.fee = enteredfee.value;
-	                    newData.properties.website = enteredwebsite.value;
-	                    newData.properties.hours = enteredhours.value;
-	                    newData.properties.notes = enterednotes.value;                   
+	                    newData.properties.address = address.value;
+	                    newData.properties.name = fname.value;
+	                    newData.properties.doctor = doctor.value;
+	                    newData.properties.contactnum = contactnum.value;
+	                    newData.properties.email = email.value;			      
+	                    newData.properties.fee = fee.value;
+	                    newData.properties.website = website.value;
+	                    newData.properties.hours = hours.value;
+	                    newData.properties.notes = notes.value;                   
 	                  cartoData.addData(newData);
 	              });
 	              
