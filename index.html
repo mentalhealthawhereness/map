@@ -191,20 +191,31 @@
 	                  enteredFee = "'" + fee.value + "'",
 	                  enteredWebsite = "'" + website.value + "'",
 	                  enteredHours = "'" + hours.value + "'",
-	                  enteredNotes = "'" + notes.value + "'";             
+	                  enteredNotes = "'" + notes.value + "'";
+			  
+	              var newFname = "'" + enteredFname.replace("'", "''") + "'",			  
+	                  newAddress = "'" + enteredAddress.replace("'", "''") + "'",
+	                  newDoctor = "'" + enteredDoctor.replace("'", "''") + "'",
+	                  newContactnum = "'" + enteredDoctor.replace("'", "''") + "'",
+	                  newEmail = "'" + enteredEmail.replace("'", "''") + "'",
+	                  newFee = "'" + enteredFee.replace("'", "''") + "'",
+	                  newWebsite = "'" + enteredWebsite.replace("'", "''") + "'",
+	                  newHours = "'" + enteredHours.replace("'", "''") + "'",
+	                  newNotes = "'" + enteredNotes.replace("'", "''") + "'";			  
+			  
 	              drawnItems.eachLayer(function (layer) {
 	                  var drawing = "'" + JSON.stringify(layer.toGeoJSON().geometry) + "'",   //Converts the drawing to a GeoJSON
 	                      sql = "SELECT " + config.cartoInsertFunction + "("; //Constructs the SQL Query from the entered parameters on the dialog/form
 	                  sql += drawing;
-	                  sql += "," + enteredAddress;
-	                  sql += "," + enteredFname;
-	                  sql += "," + enteredDoctor;
-	                  sql += "," + enteredContactnum;
-	                  sql += "," + enteredEmail;			      
-	                  sql += "," + enteredFee;
-	                  sql += "," + enteredWebsite;
-	                  sql += "," + enteredHours;
-	                  sql += "," + enteredNotes;              
+	                  sql += "," + newAddress;
+	                  sql += "," + newFname;
+	                  sql += "," + newDoctor;
+	                  sql += "," + newContactnum;
+	                  sql += "," + newEmail;			      
+	                  sql += "," + newFee;
+	                  sql += "," + newWebsite;
+	                  sql += "," + newHours;
+	                  sql += "," + newNotes;              
 	                  sql += ");";
 	                  console.log(drawing);
 	                  
