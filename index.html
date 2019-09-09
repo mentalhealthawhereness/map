@@ -196,7 +196,9 @@
 	                  enteredNotes = "'" + notes.value + "'";             
 	              drawnItems.eachLayer(function (layer) {
 	                  var drawing = "'" + JSON.stringify(layer.toGeoJSON().geometry) + "'",   //Converts the drawing to a GeoJSON
-	                      sql = "SELECT " + config.cartoInsertFunction + "("; //Constructs the SQL Query from the entered parameters on the dialog/form
+	                      sql = "SELECT insert_data('" + user_input +"');"; //Constructs the SQL Query from the entered parameters on the dialog/form
+			      sanitized_input = user_input.replace("'", "''")
+			      
 	                  sql += drawing;
 	                  sql += "," + enteredAddress;
 	                  sql += "," + enteredFname;
