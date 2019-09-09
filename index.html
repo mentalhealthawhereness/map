@@ -41,8 +41,8 @@
 		<form>
 			<fieldset style="border: none;">
 				<ul style="list-style-type: none; padding-left: 0px">
-					<li><label for="fname">Name</label></li>
-					<li><input id="fname" name="fname" placeholder="Name of Service/Facility" size="40" type="text" required></li>
+					<li><label for="name">Name</label></li>
+					<li><input id="name" name="name" placeholder="Name of Service/Facility" size="40" type="text" required></li>
 					<li><label for="doctor">Doctor</label></li>
 					<li><textarea cols="40" id="doctor" name="doctor" placeholder="Who should we look for?" rows="5"></textarea></li>
 					<li><label for="address">Address</label></li>
@@ -79,6 +79,7 @@
 	<script type="text/javascript" src="dist/leaflet-control-credits.js"></script>
 	
 	<script>
+
 	          var config = { //TODO: Change to your username, insert function on Carto, and Carto tablename
 	              cartoUsername: "anditabinas",
 	              cartoInsertFunction : "insert_crowd_mapping_data",
@@ -119,6 +120,7 @@
 	              icon: 'fa fa-hand-o-down'
 	          });     
 	          map.addControl(lc);
+
 			 
 	          var getData = "https://" + config.cartoUsername + ".carto.com/api/v2/sql?format=GeoJSON&q=" + sqlQuery; //Fetches data input on the carto database
 	          function getGeoJSON() {
@@ -182,22 +184,35 @@
 	              event.preventDefault();
 	              setData();
 	          });
+			  
 	          function setData() {
-	              var enteredFname = "'" + fname.value + "'",
-	                  enteredAddress = "'" + address.value + "'",
-	                  enteredDoctor = "'" + doctor.value + "'",
-	                  enteredContactnum = "'" + contactnum.value + "'",
-	                  enteredEmail = "'" + email.value + "'",			  
-	                  enteredFee = "'" + fee.value + "'",
-	                  enteredWebsite = "'" + website.value + "'",
-	                  enteredHours = "'" + hours.value + "'",
-	                  enteredNotes = "'" + notes.value + "'";             
+	              var userName = "'" + name.value + "'", 
+	                  userAddress = "'" + address.value + "'",
+	                  userDoctor = "'" + doctor.value + "'",
+	                  userContactnum = "'" + contactnum.value + "'",
+	                  userEmail = "'" + email.value + "'", 
+	                  userFee = "'" + fee.value + "'",
+	                  userWebsite = "'" + website.value + "'",
+	                  userHours = "'" + hours.value + "'",
+	                  userNotes = "'" + notes.value + "'";
+			  
+	              var enteredname = "'" + username.replace(''', '''') + "'",
+	                  enteredAddress = "'" + userAddress.replace(''', '''') + "'",
+	                  enteredDoctor = "'" + userDoctor.replace(''', '''') + "'",
+	                  enteredContactnum = "'" + userContactnum.replace(''', '''') + "'",
+	                  enteredEmail = "'" + userEmail.replace(''', '''') + "'",
+	                  enteredFee = "'" + userFee.replace(''', '''') + "'",
+	                  enteredWebsite = "'" + userWebsite.replace(''', '''') + "'",
+	                  enteredHours = "'" + userHours.replace(''', '''') + "'",
+	                  enteredNotes = "'" + userNotes.replace(''', '''') + "'";
+			  
 	              drawnItems.eachLayer(function (layer) {
 	                  var drawing = "'" + JSON.stringify(layer.toGeoJSON().geometry) + "'",   //Converts the drawing to a GeoJSON
-	                      sql = "SELECT " + config.cartoInsertFunction + "("; //Constructs the SQL Query from the entered parameters on the dialog/form
+	                      sql = "SELECT " + config.cartoInsertFunction + "(";
+			      
 	                  sql += drawing;
 	                  sql += "," + enteredAddress;
-	                  sql += "," + enteredFname;
+	                  sql += "," + enteredname;
 	                  sql += "," + enteredDoctor;
 	                  sql += "," + enteredContactnum;
 	                  sql += "," + enteredEmail;			      
@@ -221,9 +236,10 @@
 	                          console.log("Problem saving the data");
 	                      }
 	                  });
+					  
 	                  var newData = layer.toGeoJSON();
 	                    newData.properties.address = address.value;
-	                    newData.properties.name = fname.value;
+	                    newData.properties.name = name.value;
 	                    newData.properties.doctor = doctor.value;
 	                    newData.properties.contactnum = contactnum.value;
 	                    newData.properties.email = email.value;			      
@@ -236,6 +252,7 @@
 	              
 	              dialog.dialog("close");
 	          }
+			  
 	          function refreshLayer() {
 	              console.log("drawnItems has been cleared");
 	              map.removeLayer(drawnItems);
