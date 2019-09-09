@@ -196,7 +196,7 @@
 	                  enteredNotes = "'" + notes.value + "'";             
 	              drawnItems.eachLayer(function (layer) {
 	                  var drawing = "'" + JSON.stringify(layer.toGeoJSON().geometry) + "'",   //Converts the drawing to a GeoJSON
-	                      sql = "SELECT " + config.cartoInsertFunction + "(";
+	                      sql = "SELECT " + config.cartoInsertFunction + "('" + user_input +"');";
 			      
 	                  sql += drawing;
 	                  sql += "," + enteredAddress;
