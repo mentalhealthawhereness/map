@@ -184,6 +184,7 @@
 	              event.preventDefault();
 	              setData();
 	          });
+			  
 	          function setData() {
 	              var userFname = "'" + fname.value + "'", 
 	                  userAddress = "'" + address.value + "'",
@@ -235,6 +236,7 @@
 	                          console.log("Problem saving the data");
 	                      }
 	                  });
+					  
 	                  var newData = layer.toGeoJSON();
 	                    newData.properties.address = address.value;
 	                    newData.properties.name = fname.value;
@@ -250,6 +252,7 @@
 	              
 	              dialog.dialog("close");
 	          }
+			  
 	          function refreshLayer() {
 	              console.log("drawnItems has been cleared");
 	              map.removeLayer(drawnItems);
