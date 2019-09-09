@@ -1,94 +1,4 @@
-<!DOCTYPE html>
-<!--Initially based on https://github.com/radumas/crowdmap-basic and https://github.com/mjfoster83/web-map-workshop/blob/master/7_advancedMapping_CartoDB/index-completed.html-->
-<html>
-<head>
-	<meta charset="utf-8" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
-	<meta content="IE=edge" http-equiv="X-UA-Compatible">
-	<title>Mental Health aWHEREness: Point Collection Tool</title>
-	<link href="https://unpkg.com/leaflet@0.7.7/dist/leaflet.css" rel="stylesheet">
-	<link href="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" rel="stylesheet">
-	<link href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet">
-	<link href="css/style.css" rel="stylesheet" type="text/css">
-	<link href="https://rawgit.com/k4r573n/leaflet-control-osm-geocoder/master/Control.OSMGeocoder.css" rel="stylesheet">
-	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-	<link href="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.67.0/dist/L.Control.Locate.min.css" rel="stylesheet">
-	<link href="https://rawgit.com/mapshakers/leaflet-control-window/master/src/L.Control.Window.css" rel="stylesheet">
-	<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css' rel='stylesheet' />
-<!--	<link href='https://github.com/anditabinas/mhawhereness/blob/master/leaflet-routing-machine.css' rel='stylesheet' /> -->	
-<!--	<link rel="stylesheet" href="https://github.com/anditabinas/mhawhereness/blob/master/css/MarkerCluster.css" /> -->
-<!--	<link rel="stylesheet" href="https://github.com/anditabinas/mhawhereness/blob/master/leaflet-easy-button.css" /> -->
-<!--	<link rel="stylesheet" href="https://github.com/anditabinas/mhawhereness/blob/master/leaflet-tag-filter-button.css" /> -->
 
-
-</head>
-<body>
-	<body oncontextmenu="return false">
-	<div id="wrapper">
-		<div id="header">
-			<a href="https://mentalhealthawhereness.com"><img src="https://mhaphmap.files.wordpress.com/2019/05/mhaphlogo-1.png" alt="Mental Health aWHEREness" style="width:50px; height:40px; border:0"></a><h1>Mental Health aWHEREness</h1>
-		        <h2>Click pins for information on MH resources, or contribute data by adding points for the MH resources and facilities that you know. <br>Visit the <a href="https://mentalhealthawhereness.com">Mental Health aWHEREness</a> website for more information on how to contribute.</h2>	 	
-		</div>
-		<div id="controls">
-			<input onclick="startEdits()" type="button" value="Click to Start Editing"> <input onclick="stopEdits()" type="button" value="Stop Your Editing Session"><br>
-		</div>
-		<div id="map"></div>
-		<div id="credits">
-			<p>Github Leaflet Draw Collection Tool &copy;2015, Mike Foster and Raphael Dumas</p>
-			<p>Mental Health aWHEREness &copy;2019, Sandra Tabinas</p>
-		</div>
-	</div>
-	<div id="dialog" title="MH Service/Facility Details">
-		<form>
-			<fieldset style="border: none;">
-				<ul style="list-style-type: none; padding-left: 0px">
-					<li><label for="fname">Name</label></li>
-					<li><input id="fname" name="fname" placeholder="Name of Service/Facility" size="40" type="text" required></li>
-					<li><label for="doctor">Doctor</label></li>
-					<li><textarea cols="40" id="doctor" name="doctor" placeholder="Who should we look for?" rows="5"></textarea></li>
-					<li><label for="address">Address</label></li>
-					<li><textarea cols="40" id="address" name="address" placeholder="Where can we find this?" rows="5"></textarea></li>
-					<li><label for="contactnum">Contact Number</label></li>
-					<li><input id="contactnum" name="contactnum" placeholder="Telephone or Mobile number to call" size="40" type="text" required></li>
-					<li><label for="email">Email Address</label></li>
-					<li><input id="email" name="email" placeholder="Email Address" size="40" type="text" required></li>										
-					<li><label for="fee">Initial and Succeeding Fees</label></li>
-					<li><input id="fee" name="fee" placeholder="Separate by comma if succeeding fees are diff. from initial" size="40" type="text"></li>
-					<li><label for="website">Website or Other Details</label></li>
-					<li><textarea cols="40" id="website" name="website" placeholder="Website, Social Media, other details" rows="5"></textarea></li>
-					<li><label for="hours">Opening Hours</label></li>
-					<li><input id="hours" name="hours" placeholder="Opening Hours" size="40" type="text"></li>
-					<li><label for="notes">Notes/Recommendations</label></li>
-					<li><textarea cols="40" id="notes" name="notes" placeholder="Notes/tips for others" rows="5"></textarea></li>
-				</ul><input style="position:absolute; top:-1000px" tabindex="-1" type="submit">
-			</fieldset>
-		</form>
-	</div>
-	<script src="https://unpkg.com/leaflet@0.7.7/dist/leaflet.js"></script> 
-	<script src="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script> 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script> 
-	<script src="https://rawgit.com/k4r573n/leaflet-control-osm-geocoder/master/Control.OSMGeocoder.js"></script> 
-	<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
-	<script src="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></script> 
-	<script charset="utf-8" src="https://cdn.jsdelivr.net/npm/leaflet.locatecontrol@0.67.0/dist/L.Control.Locate.min.js"></script> 
-	<script src="https://rawgit.com/mapshakers/leaflet-control-window/master/src/L.Control.Window.js"></script> 
-	<script src="https://github.com/anditabinas/mhawhereness/blob/master/leaflet.markercluster.js"></script>
-	<script src="https://github.com/anditabinas/mhawhereness/blob/master/leaflet-easy-button.js"></script>
-	<script src="https://github.com/anditabinas/mhawhereness/blob/master/leaflet-tag-filter-button.js"></script>
-	<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js'></script>
-<!--	<script src='https://github.com/anditabinas/mhawhereness/blob/master/leaflet-routing-machine.js'></script> -->	
-	<script type="text/javascript" src="dist/leaflet-control-credits.js"></script>
-	
-	<script>
-	          var config = { //TODO: Change to your username, insert function on Carto, and Carto tablename
-	              cartoUsername: "anditabinas",
-	              cartoInsertFunction : "insert_crowd_mapping_data",
-	              cartoTablename: "mhloc",
-	              mapcenter: [12.85985, 114.03808],
-	              drawOptions: {
-	                  draw: {
-	                      polygon: false,
-	                      polyline: false,
-	                      rectangle: false,
 	                      circle: false,
 	                                  circlemarker: false,
 	                      marker: true                                    
@@ -191,31 +101,20 @@
 	                  enteredFee = "'" + fee.value + "'",
 	                  enteredWebsite = "'" + website.value + "'",
 	                  enteredHours = "'" + hours.value + "'",
-	                  enteredNotes = "'" + notes.value + "'";
-			  
-	              var newFname = "'" + enteredFname.replace("'", "''") + "'",			  
-	                  newAddress = "'" + enteredAddress.replace("'", "''") + "'",
-	                  newDoctor = "'" + enteredDoctor.replace("'", "''") + "'",
-	                  newContactnum = "'" + enteredDoctor.replace("'", "''") + "'",
-	                  newEmail = "'" + enteredEmail.replace("'", "''") + "'",
-	                  newFee = "'" + enteredFee.replace("'", "''") + "'",
-	                  newWebsite = "'" + enteredWebsite.replace("'", "''") + "'",
-	                  newHours = "'" + enteredHours.replace("'", "''") + "'",
-	                  newNotes = "'" + enteredNotes.replace("'", "''") + "'";			  
-			  
+	                  enteredNotes = "'" + notes.value + "'";             
 	              drawnItems.eachLayer(function (layer) {
 	                  var drawing = "'" + JSON.stringify(layer.toGeoJSON().geometry) + "'",   //Converts the drawing to a GeoJSON
 	                      sql = "SELECT " + config.cartoInsertFunction + "("; //Constructs the SQL Query from the entered parameters on the dialog/form
 	                  sql += drawing;
-	                  sql += "," + newAddress;
-	                  sql += "," + newFname;
-	                  sql += "," + newDoctor;
-	                  sql += "," + newContactnum;
-	                  sql += "," + newEmail;			      
-	                  sql += "," + newFee;
-	                  sql += "," + newWebsite;
-	                  sql += "," + newHours;
-	                  sql += "," + newNotes;              
+	                  sql += "," + enteredAddress;
+	                  sql += "," + enteredFname;
+	                  sql += "," + enteredDoctor;
+	                  sql += "," + enteredContactnum;
+	                  sql += "," + enteredEmail;			      
+	                  sql += "," + enteredFee;
+	                  sql += "," + enteredWebsite;
+	                  sql += "," + enteredHours;
+	                  sql += "," + enteredNotes;              
 	                  sql += ");";
 	                  console.log(drawing);
 	                  
