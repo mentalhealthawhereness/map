@@ -186,31 +186,40 @@
 	          });
 			  
 	          function setData() {
-	              var enteredFname = "'" + quote_literal(fname.value) + "'", 
-	                  enteredAddress = "'" + quote_literal(address.value) + "'",
-	                  enteredDoctor = "'" + quote_literal(doctor.value) + "'",
-	                  enteredContactnum = "'" + quote_literal(contactnum.value) + "'",
-	                  enteredEmail = "'" + quote_literal(email.value) + "'", 
-	                  enteredFee = "'" + quote_literal(fee.value) + "'",
-	                  enteredWebsite = "'" + quote_literal(website.value) + "'",
-	                  enteredHours = "'" + quote_literal(hours.value) + "'",
-	                  enteredNotes = "'" + quote_literal(notes.value) + "'";
-			 
+	              var userFname = "'" + fname.value + "'", 
+	                  userAddress = "'" + address.value + "'",
+	                  userDoctor = "'" + doctor.value + "'",
+	                  userContactnum = "'" + contactnum.value + "'",
+	                  userEmail = "'" + email.value + "'", 
+	                  userFee = "'" + fee.value + "'",
+	                  userWebsite = "'" + website.value + "'",
+	                  userHours = "'" + hours.value + "'",
+	                  userNotes = "'" + notes.value + "'";
+			  
+	              var enteredFname = "'" + userFname.replace("'", "' '") + "'",
+	                  enteredAddress = "'" + userAddress.replace("'", "''") + "'",
+	                  enteredDoctor = "'" + userDoctor.replace("'", "''") + "'",
+	                  enteredContactnum = "'" + userContactnum.replace("'", "''") + "'",
+	                  enteredEmail = "'" + userEmail.replace("'", "''") + "'",
+	                  enteredFee = "'" + userFee.replace("'", "''") + "'",
+	                  enteredWebsite = "'" + userWebsite.replace("'", "''") + "'",
+	                  enteredHours = "'" + userHours.replace("'", "''") + "'",
+	                  enteredNotes = "'" + userNotes.replace("'", "''") + "'";
 			  
 	              drawnItems.eachLayer(function (layer) {
 	                  var drawing = "'" + JSON.stringify(layer.toGeoJSON().geometry) + "'",   //Converts the drawing to a GeoJSON
 	                      sql = "SELECT " + config.cartoInsertFunction + "(";
 			      
 	                  sql += drawing;
-	                  sql += "," + enteredAddress;
-	                  sql += "," + enteredFname;
-	                  sql += "," + enteredDoctor;
-	                  sql += "," + enteredContactnum;
-	                  sql += "," + enteredEmail;			      
-	                  sql += "," + enteredFee;
-	                  sql += "," + enteredWebsite;
-	                  sql += "," + enteredHours;
-	                  sql += "," + enteredNotes;              
+	                  sql += "," + quote_literal(enteredAddress);
+	                  sql += "," + quote_literal(enteredFname);
+	                  sql += "," + quote_literal(enteredDoctor);
+	                  sql += "," + quote_literal(enteredContactnum);
+	                  sql += "," + quote_literal(enteredEmail);			      
+	                  sql += "," + quote_literal(enteredFee);
+	                  sql += "," + quote_literal(enteredWebsite);
+	                  sql += "," + quote_literal(enteredHours);
+	                  sql += "," + quote_literal(enteredNotes);              
 	                  sql += ");";
 	                  console.log(drawing);
 	                  
