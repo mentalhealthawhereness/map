@@ -79,7 +79,6 @@
 	<script type="text/javascript" src="dist/leaflet-control-credits.js"></script>
 	
 	<script>
-
 	          var config = { //TODO: Change to your username, insert function on Carto, and Carto tablename
 	              cartoUsername: "anditabinas",
 	              cartoInsertFunction : "insert_crowd_mapping_data",
@@ -120,7 +119,6 @@
 	              icon: 'fa fa-hand-o-down'
 	          });     
 	          map.addControl(lc);
-
 			 
 	          var getData = "https://" + config.cartoUsername + ".carto.com/api/v2/sql?format=GeoJSON&q=" + sqlQuery; //Fetches data input on the carto database
 	          function getGeoJSON() {
@@ -184,32 +182,19 @@
 	              event.preventDefault();
 	              setData();
 	          });
-			  
 	          function setData() {
-	              var userFname = "'" + fname.value + "'", 
-	                  userAddress = "'" + address.value + "'",
-	                  userDoctor = "'" + doctor.value + "'",
-	                  userContactnum = "'" + contactnum.value + "'",
-	                  userEmail = "'" + email.value + "'", 
-	                  userFee = "'" + fee.value + "'",
-	                  userWebsite = "'" + website.value + "'",
-	                  userHours = "'" + hours.value + "'",
-	                  userNotes = "'" + notes.value + "'";
-			  
-	              var enteredFname = "'" + userFname.replace(''', '''') + "'",
-	                  enteredAddress = "'" + userAddress.replace(''', '''') + "'",
-	                  enteredDoctor = "'" + userDoctor.replace(''', '''') + "'",
-	                  enteredContactnum = "'" + userContactnum.replace(''', '''') + "'",
-	                  enteredEmail = "'" + userEmail.replace(''', '''') + "'",
-	                  enteredFee = "'" + userFee.replace(''', '''') + "'",
-	                  enteredWebsite = "'" + userWebsite.replace(''', '''') + "'",
-	                  enteredHours = "'" + userHours.replace(''', '''') + "'",
-	                  enteredNotes = "'" + userNotes.replace(''', '''') + "'";
-			  
+	              var enteredFname = "'" + fname.value + "'",
+	                  enteredAddress = "'" + address.value + "'",
+	                  enteredDoctor = "'" + doctor.value + "'",
+	                  enteredContactnum = "'" + contactnum.value + "'",
+	                  enteredEmail = "'" + email.value + "'",			  
+	                  enteredFee = "'" + fee.value + "'",
+	                  enteredWebsite = "'" + website.value + "'",
+	                  enteredHours = "'" + hours.value + "'",
+	                  enteredNotes = "'" + notes.value + "'";             
 	              drawnItems.eachLayer(function (layer) {
 	                  var drawing = "'" + JSON.stringify(layer.toGeoJSON().geometry) + "'",   //Converts the drawing to a GeoJSON
-	                      sql = "SELECT " + config.cartoInsertFunction + "(";
-			      
+	                      sql = "SELECT " + config.cartoInsertFunction + "("; //Constructs the SQL Query from the entered parameters on the dialog/form
 	                  sql += drawing;
 	                  sql += "," + enteredAddress;
 	                  sql += "," + enteredFname;
@@ -236,7 +221,6 @@
 	                          console.log("Problem saving the data");
 	                      }
 	                  });
-					  
 	                  var newData = layer.toGeoJSON();
 	                    newData.properties.address = address.value;
 	                    newData.properties.name = fname.value;
@@ -252,7 +236,6 @@
 	              
 	              dialog.dialog("close");
 	          }
-			  
 	          function refreshLayer() {
 	              console.log("drawnItems has been cleared");
 	              map.removeLayer(drawnItems);
