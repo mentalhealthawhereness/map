@@ -211,15 +211,15 @@
 	                      sql = "SELECT " + config.cartoInsertFunction + "(";
 			      
 	                  sql += drawing;
-	                  sql += "," + quote_literal(enteredAddress);
-	                  sql += "," + quote_literal(enteredFname);
-	                  sql += "," + quote_literal(enteredDoctor);
-	                  sql += "," + quote_literal(enteredContactnum);
-	                  sql += "," + quote_literal(enteredEmail);			      
-	                  sql += "," + quote_literal(enteredFee);
-	                  sql += "," + quote_literal(enteredWebsite);
-	                  sql += "," + quote_literal(enteredHours);
-	                  sql += "," + quote_literal(enteredNotes);              
+	                  sql += "," + enteredAddress;
+	                  sql += "," + enteredFname;
+	                  sql += "," + enteredDoctor;
+	                  sql += "," + enteredContactnum;
+	                  sql += "," + enteredEmail;			      
+	                  sql += "," + enteredFee;
+	                  sql += "," + enteredWebsite;
+	                  sql += "," + enteredHours;
+	                  sql += "," + enteredNotes;              
 	                  sql += ");";
 	                  console.log(drawing);
 	                  
