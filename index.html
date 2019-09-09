@@ -185,15 +185,15 @@
 	              setData();
 	          });
 	          function setData() {
-	              var enteredFname = "'" + fname.replace("'", "''"),
-	                  enteredAddress = "'" + address.replace("'", "''"),
-	                  enteredDoctor = "'" + doctor.replace("'", "''"),
-	                  enteredContactnum = "'" + contactnum.replace("'", "''"),
-	                  enteredEmail = "'" + email.replace("'", "''"),		  
-	                  enteredFee = "'" + fee.replace("'", "''"),
-	                  enteredWebsite = "'" + website.replace("'", "''"),
-	                  enteredHours = "'" + hours.replace("'", "''"),
-	                  enteredNotes = "'" + notes.replace("'", "''");        
+	              var enteredFname = "'" + fname.value + "'",
+	                  enteredAddress = "'" + address.value + "'",
+	                  enteredDoctor = "'" + doctor.value + "'",
+	                  enteredContactnum = "'" + contactnum.value + "'",
+	                  enteredEmail = "'" + email.value + "'",	  
+	                  enteredFee = "'" + fee.value + "'",
+	                  enteredWebsite = "'" + website.value + "'",
+	                  enteredHours = "'" + hours.value + "'",
+	                  enteredNotes = "'" + notes.value + "'";        
 	              drawnItems.eachLayer(function (layer) {
 	                  var drawing = "'" + JSON.stringify(layer.toGeoJSON().geometry) + "'",   //Converts the drawing to a GeoJSON
 	                      sql = "SELECT " + config.cartoInsertFunction + "(";
