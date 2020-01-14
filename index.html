@@ -48,18 +48,18 @@
 					<li><textarea cols="40" id="alt" name="alt" placeholder="Alternate Name" rows="5"></textarea></li>
 					<li><label for="region">Region</label></li>
 					<li><textarea cols="40" id="region" name="region" placeholder="Region" rows="5"></textarea></li>
-					<li><label for="contactnum">Contact Number</label></li>
-					<li><input id="contactnum" name="contactnum" placeholder="Telephone or Mobile number to call" size="40" type="text" required></li>
-					<li><label for="email">Email Address</label></li>
-					<li><input id="email" name="email" placeholder="Email Address" size="40" type="text" required></li>										
-					<li><label for="fee">Initial and Succeeding Fees</label></li>
-					<li><input id="fee" name="fee" placeholder="Separate by comma if succeeding fees are diff. from initial" size="40" type="text"></li>
-					<li><label for="website">Website or Other Details</label></li>
-					<li><textarea cols="40" id="website" name="website" placeholder="Website, Social Media, other details" rows="5"></textarea></li>
-					<li><label for="hours">Opening Hours</label></li>
-					<li><input id="hours" name="hours" placeholder="Opening Hours" size="40" type="text"></li>
-					<li><label for="notes">Notes/Recommendations</label></li>
-					<li><textarea cols="40" id="notes" name="notes" placeholder="Notes/tips for others" rows="5"></textarea></li>
+					<li><label for="muni">Municipality</label></li>
+					<li><input id="muni" name="muni" placeholder="Municipality" size="40" type="text" required></li>
+					<li><label for="brgy">Barangay</label></li>
+					<li><input id="brgy" name="brgy" placeholder="Barangay" size="40" type="text" required></li>										
+					<li><label for="type">Type</label></li>
+					<li><input id="type" name="type" placeholder="School or Brgy Hall?" size="40" type="text"></li>
+					<li><label for="source">Source</label></li>
+					<li><textarea cols="40" id="source" name="source" placeholder="Source" rows="5"></textarea></li>
+					<li><label for="researhcer">Researcher</label></li>
+					<li><input id="researcher" name="researcher" placeholder="Researcher" size="40" type="text"></li>
+					<li><label for="approxnum">Approximate Number of Evacuees</label></li>
+					<li><textarea cols="40" id="approxnum" name="approxnum" placeholder="Approximate Number of Evacuees" rows="5"></textarea></li>
 				</ul><input style="position:absolute; top:-1000px" tabindex="-1" type="submit">
 			</fieldset>
 		</form>
@@ -100,7 +100,7 @@
 	          };         
 	          
 	          var cartoData = null; //These adds data from Carto using the SQL API, declares variables, and writes the SQL selection query
-	          var sqlQuery = "SELECT the_geom, region, name, alt, contactnum, email, fee, website, hours, notes FROM " + config.cartoTablename;
+	          var sqlQuery = "SELECT the_geom, region, name, alt, muni, brgy, type, source, researcher, approxnum FROM " + config.cartoTablename;
 	          var map = L.map('map', { center: config.mapcenter, zoom: 5});   // Creates the Leaflet map object
 	          map.addControl(new L.Control.Fullscreen());
 		
@@ -126,7 +126,7 @@
 	              $.getJSON(getData, function (data) {
 	                  cartoData = L.geoJson(data, {
 	                      onEachFeature: function (feature, layer) {
-	                          layer.bindPopup('<b>EC Name: <\/b>' + feature.properties.name + '<br>' + '<b>Alternate Name: <\/b>' + feature.properties.alt + '<br>' + '<b>Region: <\/b>' + feature.properties.region + '<br>' + '<b>Contact Number: <\/b>' + feature.properties.contactnum + '<br>' + '<b>Email Address: <\/b>' + feature.properties.email + '<br>' + '<b>Fees (Initial/Succeeding): <\/b>' + feature.properties.fee + '<br>' + '<b>Website: <\/b>' + feature.properties.website + '<br>' + '<b>Opening Hours: <\/b>' + feature.properties.hours + '<br>' + '<b>Notes/Recommendations: <\/b>' + feature.properties.notes + '');
+	                          layer.bindPopup('<b>EC Name: <\/b>' + feature.properties.name + '<br>' + '<b>Alternate Name: <\/b>' + feature.properties.alt + '<br>' + '<b>Region: <\/b>' + feature.properties.region + '<br>' + '<b>Municipality: <\/b>' + feature.properties.muni + '<br>' + '<b>Brgy: <\/b>' + feature.properties.brgy + '<br>' + '<b>Type: <\/b>' + feature.properties.type + '<br>' + '<b>Source: <\/b>' + feature.properties.source + '<br>' + '<b>Researcher: <\/b>' + feature.properties.researcher + '<br>' + '<b>Approximate Number of Evacuees: <\/b>' + feature.properties.approxnum + '');
 	                      }           
 	                  }).addTo(map);
 	              });
@@ -187,12 +187,12 @@
 	              var enteredFname = "'" + JSON.stringify(fname.value.replace("'", "''")) + "'"
 	              var enteredRegion = "'" + JSON.stringify(region.value.replace("'", "''")) + "'"	
 	              var enteredAlt = "'" + JSON.stringify(alt.value.replace("'", "''")) + "'"			      
-	              var enteredContactnum = "'" + JSON.stringify(contactnum.value.replace("'", "''")) + "'"	
-	              var enteredEmail = "'" + JSON.stringify(email.value.replace("'", "''")) + "'"	
-	              var enteredFee = "'" + JSON.stringify(fee.value.replace("'", "''")) + "'"			  
-	              var enteredWebsite = "'" + JSON.stringify(website.value.replace("'", "''")) + "'"		
-	              var enteredHours = "'" + JSON.stringify(hours.value.replace("'", "''")) + "'"		
-	              var enteredNotes = "'" + JSON.stringify(notes.value.replace("'", "''")) + "'";
+	              var enteredMuni = "'" + JSON.stringify(muni.value.replace("'", "''")) + "'"	
+	              var enteredBrgy = "'" + JSON.stringify(brgy.value.replace("'", "''")) + "'"	
+	              var enteredType = "'" + JSON.stringify(type.value.replace("'", "''")) + "'"			  
+	              var enteredSource = "'" + JSON.stringify(source.value.replace("'", "''")) + "'"		
+	              var enteredResearcher = "'" + JSON.stringify(researcher.value.replace("'", "''")) + "'"		
+	              var enteredApproxnum = "'" + JSON.stringify(approxnum.value.replace("'", "''")) + "'";
 				  
 			  
 	              drawnItems.eachLayer(function (layer) {
@@ -202,12 +202,12 @@
 	                  sql += "," + enteredRegion;
 	                  sql += "," + enteredFname;
 	                  sql += "," + enteredAlt;
-	                  sql += "," + enteredContactnum;
-	                  sql += "," + enteredEmail;			      
-	                  sql += "," + enteredFee;
-	                  sql += "," + enteredWebsite;
-	                  sql += "," + enteredHours;
-	                  sql += "," + enteredNotes;              
+	                  sql += "," + enteredMuni;
+	                  sql += "," + enteredBrgy;			      
+	                  sql += "," + enteredType;
+	                  sql += "," + enteredSource;
+	                  sql += "," + enteredResearcher;
+	                  sql += "," + enteredApproxnum;              
 	                  sql += ");";
 	                  console.log(drawing);
 	                  
@@ -225,15 +225,15 @@
 	                      }
 	                  });
 	                  var newData = layer.toGeoJSON();
-	                    newData.properties.address = region.value;
+	                    newData.properties.region = region.value;
 	                    newData.properties.name = fname.value;
-	                    newData.properties.doctor = alt.value;
-	                    newData.properties.contactnum = contactnum.value;
-	                    newData.properties.email = email.value;			      
-	                    newData.properties.fee = fee.value;
-	                    newData.properties.website = website.value;
-	                    newData.properties.hours = hours.value;
-	                    newData.properties.notes = notes.value;                   
+	                    newData.properties.alt = alt.value;
+	                    newData.properties.muni = muni.value;
+	                    newData.properties.brgy = brgy.value;			      
+	                    newData.properties.type = type.value;
+	                    newData.properties.source = source.value;
+	                    newData.properties.researcher = researcher.value;
+	                    newData.properties.approxnum = approxnum.value;                   
 	                  cartoData.addData(newData);
 	              });
 	              
