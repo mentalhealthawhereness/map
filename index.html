@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
 	<meta content="IE=edge" http-equiv="X-UA-Compatible">
-	<title>Taal Evacuation Centers: Point Collection Tool</title>
+	<title>Mental Health aWHEREness: Point Collection Tool</title>
 	<link href="https://unpkg.com/leaflet@0.7.7/dist/leaflet.css" rel="stylesheet">
 	<link href="//cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" rel="stylesheet">
 	<link href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css" rel="stylesheet">
@@ -25,8 +25,8 @@
 	<body oncontextmenu="return false">
 	<div id="wrapper">
 		<div id="header">
-			<h1>Taal Volcano Eruption Evacuation Centers</h1>
-		        <h2>Click pins for information about the evacuation centers, or contribute data by adding points on the map. <br>Visit the <a href="https://docs.google.com/spreadsheets/d/1IpGif_b6Ws1vs2mq3A9XB_0eUjQ2JWwJnJE6KJoIHB8/edit#gid=0">this link</a> for a live list of evacuation centers.</h2>	 	
+			<a href="https://mentalhealthawhereness.com"><img src="https://mhaphmap.files.wordpress.com/2019/05/mhaphlogo-1.png" alt="Mental Health aWHEREness" style="width:50px; height:40px; border:0"></a><h1>Mental Health aWHEREness</h1>
+		        <h2>Click pins for information on MH resources, or contribute data by adding points for the MH resources and facilities that you know. <br>Visit the <a href="https://mentalhealthawhereness.com">Mental Health aWHEREness</a> website for more information on how to contribute.</h2>	 	
 		</div>
 		<div id="controls">
 			<input onclick="startEdits()" type="button" value="Click to Start Editing"> <input onclick="stopEdits()" type="button" value="Stop Your Editing Session"><br> <font color="red">NOTE: Please DO NOT use single quotation marks on your inputs. (e.g. I'm), or use '' instead. (e.g. I''m)</font>
@@ -43,23 +43,23 @@
 			<fieldset style="border: none;">
 				<ul style="list-style-type: none; padding-left: 0px">
 					<li><label for="fname">Name</label></li>
-					<li><input id="fname" name="fname" placeholder="Name of Evacuation Center" size="40" type="text" required></li>
-					<li><label for="alt">Alternate Name</label></li>
-					<li><textarea cols="40" id="alt" name="alt" placeholder="Alternate Name" rows="5"></textarea></li>
-					<li><label for="region">Region</label></li>
-					<li><textarea cols="40" id="region" name="region" placeholder="Region" rows="5"></textarea></li>
-					<li><label for="muni">Municipality</label></li>
-					<li><input id="muni" name="muni" placeholder="Municipality" size="40" type="text" required></li>
-					<li><label for="brgy">Barangay</label></li>
-					<li><input id="brgy" name="brgy" placeholder="Barangay" size="40" type="text" required></li>										
-					<li><label for="type">Type</label></li>
-					<li><input id="type" name="type" placeholder="School or Brgy Hall?" size="40" type="text"></li>
-					<li><label for="source">Source</label></li>
-					<li><textarea cols="40" id="source" name="source" placeholder="Source" rows="5"></textarea></li>
-					<li><label for="researhcer">Researcher</label></li>
-					<li><input id="researcher" name="researcher" placeholder="Researcher" size="40" type="text"></li>
-					<li><label for="approxnum">Approximate Number of Evacuees</label></li>
-					<li><textarea cols="40" id="approxnum" name="approxnum" placeholder="Approximate Number of Evacuees" rows="5"></textarea></li>
+					<li><input id="fname" name="fname" placeholder="Name of Service/Facility" size="40" type="text" required></li>
+					<li><label for="doctor">Doctor</label></li>
+					<li><textarea cols="40" id="doctor" name="doctor" placeholder="Who should we look for?" rows="5"></textarea></li>
+					<li><label for="address">Address</label></li>
+					<li><textarea cols="40" id="address" name="address" placeholder="Where can we find this?" rows="5"></textarea></li>
+					<li><label for="contactnum">Contact Number</label></li>
+					<li><input id="contactnum" name="contactnum" placeholder="Telephone or Mobile number to call" size="40" type="text" required></li>
+					<li><label for="email">Email Address</label></li>
+					<li><input id="email" name="email" placeholder="Email Address" size="40" type="text" required></li>										
+					<li><label for="fee">Initial and Succeeding Fees</label></li>
+					<li><input id="fee" name="fee" placeholder="Separate by comma if succeeding fees are diff. from initial" size="40" type="text"></li>
+					<li><label for="website">Website or Other Details</label></li>
+					<li><textarea cols="40" id="website" name="website" placeholder="Website, Social Media, other details" rows="5"></textarea></li>
+					<li><label for="hours">Opening Hours</label></li>
+					<li><input id="hours" name="hours" placeholder="Opening Hours" size="40" type="text"></li>
+					<li><label for="notes">Notes/Recommendations</label></li>
+					<li><textarea cols="40" id="notes" name="notes" placeholder="Notes/tips for others" rows="5"></textarea></li>
 				</ul><input style="position:absolute; top:-1000px" tabindex="-1" type="submit">
 			</fieldset>
 		</form>
@@ -100,7 +100,7 @@
 	          };         
 	          
 	          var cartoData = null; //These adds data from Carto using the SQL API, declares variables, and writes the SQL selection query
-	          var sqlQuery = "SELECT the_geom, region, fname, alt, muni, brgy, type, source, researcher, approxnum FROM " + config.cartoTablename;
+	          var sqlQuery = "SELECT the_geom, address, name, doctor, contactnum, email, fee, website, hours, notes FROM " + config.cartoTablename;
 	          var map = L.map('map', { center: config.mapcenter, zoom: 5});   // Creates the Leaflet map object
 	          map.addControl(new L.Control.Fullscreen());
 		
@@ -126,7 +126,7 @@
 	              $.getJSON(getData, function (data) {
 	                  cartoData = L.geoJson(data, {
 	                      onEachFeature: function (feature, layer) {
-	                          layer.bindPopup('<b>EC Name: <\/b>' + feature.properties.fname + '<br>' + '<b>Alternate Name: <\/b>' + feature.properties.alt + '<br>' + '<b>Region: <\/b>' + feature.properties.region + '<br>' + '<b>Municipality: <\/b>' + feature.properties.muni + '<br>' + '<b>Brgy: <\/b>' + feature.properties.brgy + '<br>' + '<b>Type: <\/b>' + feature.properties.type + '<br>' + '<b>Source: <\/b>' + feature.properties.source + '<br>' + '<b>Researcher: <\/b>' + feature.properties.researcher + '<br>' + '<b>Approximate Number of Evacuees: <\/b>' + feature.properties.approxnum + '');
+	                          layer.bindPopup('<b>Name: <\/b>' + feature.properties.name + '<br>' + '<b>Doctor: <\/b>' + feature.properties.doctor + '<br>' + '<b>Address: <\/b>' + feature.properties.address + '<br>' + '<b>Contact Number: <\/b>' + feature.properties.contactnum + '<br>' + '<b>Email Address: <\/b>' + feature.properties.email + '<br>' + '<b>Fees (Initial/Succeeding): <\/b>' + feature.properties.fee + '<br>' + '<b>Website: <\/b>' + feature.properties.website + '<br>' + '<b>Opening Hours: <\/b>' + feature.properties.hours + '<br>' + '<b>Notes/Recommendations: <\/b>' + feature.properties.notes + '');
 	                      }           
 	                  }).addTo(map);
 	              });
@@ -185,29 +185,29 @@
 	          });
 	          function setData() {
 	              var enteredFname = "'" + JSON.stringify(fname.value.replace("'", "''")) + "'"
-	              var enteredRegion = "'" + JSON.stringify(region.value.replace("'", "''")) + "'"	
-	              var enteredAlt = "'" + JSON.stringify(alt.value.replace("'", "''")) + "'"			      
-	              var enteredMuni = "'" + JSON.stringify(muni.value.replace("'", "''")) + "'"	
-	              var enteredBrgy = "'" + JSON.stringify(brgy.value.replace("'", "''")) + "'"	
-	              var enteredType = "'" + JSON.stringify(type.value.replace("'", "''")) + "'"			  
-	              var enteredSource = "'" + JSON.stringify(source.value.replace("'", "''")) + "'"		
-	              var enteredResearcher = "'" + JSON.stringify(researcher.value.replace("'", "''")) + "'"		
-	              var enteredApproxnum = "'" + JSON.stringify(approxnum.value.replace("'", "''")) + "'";
+	              var enteredAddress = "'" + JSON.stringify(address.value.replace("'", "''")) + "'"	
+	              var enteredDoctor = "'" + JSON.stringify(doctor.value.replace("'", "''")) + "'"			      
+	              var enteredContactnum = "'" + JSON.stringify(contactnum.value.replace("'", "''")) + "'"	
+	              var enteredEmail = "'" + JSON.stringify(email.value.replace("'", "''")) + "'"	
+	              var enteredFee = "'" + JSON.stringify(fee.value.replace("'", "''")) + "'"			  
+	              var enteredWebsite = "'" + JSON.stringify(website.value.replace("'", "''")) + "'"		
+	              var enteredHours = "'" + JSON.stringify(hours.value.replace("'", "''")) + "'"		
+	              var enteredNotes = "'" + JSON.stringify(notes.value.replace("'", "''")) + "'";
 				  
 			  
 	              drawnItems.eachLayer(function (layer) {
 	                  var drawing = "'" + JSON.stringify(layer.toGeoJSON().geometry) + "'",   //Converts the drawing to a GeoJSON
 	                      sql = "SELECT " + config.cartoInsertFunction + "("; //Constructs the SQL Query from the entered parameters on the dialog/form
 	                  sql += drawing;
-	                  sql += "," + enteredRegion;
+	                  sql += "," + enteredAddress;
 	                  sql += "," + enteredFname;
-	                  sql += "," + enteredAlt;
-	                  sql += "," + enteredMuni;
-	                  sql += "," + enteredBrgy;			      
-	                  sql += "," + enteredType;
-	                  sql += "," + enteredSource;
-	                  sql += "," + enteredResearcher;
-	                  sql += "," + enteredApproxnum;              
+	                  sql += "," + enteredDoctor;
+	                  sql += "," + enteredContactnum;
+	                  sql += "," + enteredEmail;			      
+	                  sql += "," + enteredFee;
+	                  sql += "," + enteredWebsite;
+	                  sql += "," + enteredHours;
+	                  sql += "," + enteredNotes;              
 	                  sql += ");";
 	                  console.log(drawing);
 	                  
@@ -225,15 +225,15 @@
 	                      }
 	                  });
 	                  var newData = layer.toGeoJSON();
-	                    newData.properties.region = region.value;
-	                    newData.properties.fname = fname.value;
-	                    newData.properties.alt = alt.value;
-	                    newData.properties.muni = muni.value;
-	                    newData.properties.brgy = brgy.value;			      
-	                    newData.properties.type = type.value;
-	                    newData.properties.source = source.value;
-	                    newData.properties.researcher = researcher.value;
-	                    newData.properties.approxnum = approxnum.value;                   
+	                    newData.properties.address = address.value;
+	                    newData.properties.name = fname.value;
+	                    newData.properties.doctor = doctor.value;
+	                    newData.properties.contactnum = contactnum.value;
+	                    newData.properties.email = email.value;			      
+	                    newData.properties.fee = fee.value;
+	                    newData.properties.website = website.value;
+	                    newData.properties.hours = hours.value;
+	                    newData.properties.notes = notes.value;                   
 	                  cartoData.addData(newData);
 	              });
 	              
