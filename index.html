@@ -184,15 +184,15 @@
 	              setData();
 	          });
 	          function setData() {
-	              var enteredFname = "'" + fname.value + "'",
-	                  enteredAddress = "'" + address.value + "'",
-	                  enteredDoctor = "'" + doctor.value + "'",
-	                  enteredContactnum = "'" + contactnum.value + "'",
-	                  enteredEmail = "'" + email.value + "'",			  
-	                  enteredFee = "'" + fee.value + "'",
-	                  enteredWebsite = "'" + website.value + "'",
-	                  enteredHours = "'" + hours.value + "'",
-	                  enteredNotes = "'" + notes.value + "'";
+	              var enteredFname = "'" + JSON.stringify(fname.value.replace("'", "''")) + "'"
+	              var enteredAddress = "'" + JSON.stringify(address.value.replace("'", "''")) + "'"	
+	              var enteredDoctor = "'" + JSON.stringify(doctor.value.replace("'", "''")) + "'"			      
+	              var enteredContactnum = "'" + JSON.stringify(contactnum.value.replace("'", "''")) + "'"	
+	              var enteredEmail = "'" + JSON.stringify(email.value.replace("'", "''")) + "'"	
+	              var enteredFee = "'" + JSON.stringify(fee.value.replace("'", "''")) + "'"			  
+	              var enteredWebsite = "'" + JSON.stringify(website.value.replace("'", "''")) + "'"		
+	              var enteredHours = "'" + JSON.stringify(hours.value.replace("'", "''")) + "'"		
+	              var enteredNotes = "'" + JSON.stringify(notes.value.replace("'", "''")) + "'";
 				  
 			  
 	              drawnItems.eachLayer(function (layer) {
