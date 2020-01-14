@@ -4,7 +4,7 @@ DROP FUNCTION IF EXISTS insert_crowd_mapping_data(text,text,text,text,text,text,
 CREATE OR REPLACE FUNCTION insert_crowd_mapping_data (
     _geojson TEXT,
     _region TEXT,
-    _name TEXT,
+    _fname TEXT,
     _alt TEXT,
     _muni TEXT,
     _brgy TEXT,	
@@ -25,9 +25,9 @@ BEGIN
 	
 
 	--Executes the insert given the supplied geometry, description, and username, while protecting against SQL injection.
-    EXECUTE ' INSERT INTO '||quote_ident(_the_table)||' (the_geom, region, name, alt, muni, brgy, type, source, researcher, approxnum)
+    EXECUTE ' INSERT INTO '||quote_ident(_the_table)||' (the_geom, region, fname, alt, muni, brgy, type, source, researcher, approxnum)
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-            ' USING _the_geom, _region, _name, _alt, _muni, _brgy, _type, _source, _researcher, _approxnum;
+            ' USING _the_geom, _region, _fname, _alt, _muni, _brgy, _type, _source, _researcher, _approxnum;
             
     RETURN 1;
 END;
