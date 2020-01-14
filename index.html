@@ -100,7 +100,7 @@
 	          };         
 	          
 	          var cartoData = null; //These adds data from Carto using the SQL API, declares variables, and writes the SQL selection query
-	          var sqlQuery = "SELECT the_geom, region, name, alt, muni, brgy, type, source, researcher, approxnum FROM " + config.cartoTablename;
+	          var sqlQuery = "SELECT the_geom, region, fname, alt, muni, brgy, type, source, researcher, approxnum FROM " + config.cartoTablename;
 	          var map = L.map('map', { center: config.mapcenter, zoom: 5});   // Creates the Leaflet map object
 	          map.addControl(new L.Control.Fullscreen());
 		
@@ -126,7 +126,7 @@
 	              $.getJSON(getData, function (data) {
 	                  cartoData = L.geoJson(data, {
 	                      onEachFeature: function (feature, layer) {
-	                          layer.bindPopup('<b>EC Name: <\/b>' + feature.properties.name + '<br>' + '<b>Alternate Name: <\/b>' + feature.properties.alt + '<br>' + '<b>Region: <\/b>' + feature.properties.region + '<br>' + '<b>Municipality: <\/b>' + feature.properties.muni + '<br>' + '<b>Brgy: <\/b>' + feature.properties.brgy + '<br>' + '<b>Type: <\/b>' + feature.properties.type + '<br>' + '<b>Source: <\/b>' + feature.properties.source + '<br>' + '<b>Researcher: <\/b>' + feature.properties.researcher + '<br>' + '<b>Approximate Number of Evacuees: <\/b>' + feature.properties.approxnum + '');
+	                          layer.bindPopup('<b>EC Name: <\/b>' + feature.properties.fname + '<br>' + '<b>Alternate Name: <\/b>' + feature.properties.alt + '<br>' + '<b>Region: <\/b>' + feature.properties.region + '<br>' + '<b>Municipality: <\/b>' + feature.properties.muni + '<br>' + '<b>Brgy: <\/b>' + feature.properties.brgy + '<br>' + '<b>Type: <\/b>' + feature.properties.type + '<br>' + '<b>Source: <\/b>' + feature.properties.source + '<br>' + '<b>Researcher: <\/b>' + feature.properties.researcher + '<br>' + '<b>Approximate Number of Evacuees: <\/b>' + feature.properties.approxnum + '');
 	                      }           
 	                  }).addTo(map);
 	              });
@@ -226,7 +226,7 @@
 	                  });
 	                  var newData = layer.toGeoJSON();
 	                    newData.properties.region = region.value;
-	                    newData.properties.name = fname.value;
+	                    newData.properties.fname = fname.value;
 	                    newData.properties.alt = alt.value;
 	                    newData.properties.muni = muni.value;
 	                    newData.properties.brgy = brgy.value;			      
